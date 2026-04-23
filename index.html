@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecVue Product Update - Release 26.2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem 2rem 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .header-btn {
+            padding: 0.75rem 1.5rem;
+            background: powderblue;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            color: #00008B;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .header-btn:hover::before {
+            left: 100%;
+        }
+
+        .header-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 217, 255, 0.25);
+            border-color: #00D9FF;
+        }
+
+        .header-content { flex: 1; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .header h2 { font-size: 1.5rem; font-weight: 400; opacity: 0.95; }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding-left: 10px;
+            padding-right: 5px;
+        }
+
+        .download-btn {
+            background-color: #004d4d;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .download-btn:hover { background-color: #00b3b3; }
+        .download-btn:active { background-color: #004d4d; }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: calc(100vh - 150px);
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .nav-menu { list-style: none; }
+        .nav-item { margin-bottom: 0.5rem; }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: #475569;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover { background-color: #e0e7ff; color: #1e3a8a; border-left-color: #3b82f6; }
+        .nav-link.active { background-color: #dbeafe; color: #1e40af; border-left-color: #2563eb; }
+
+        .sub-menu { list-style: none; margin-left: 1rem; display: none; }
+        .sub-menu.active { display: block; }
+        .sub-menu .nav-link { font-size: 0.9rem; padding: 0.5rem 1.5rem; font-weight: 400; }
+
+        .content { flex: 1; padding: 3rem; overflow-y: auto; }
+
+        .section { margin-bottom: 3rem; display: none; }
+        .section.active { display: block; }
+
+        .section h2 { color: #1e3a8a; font-size: 2rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 3px solid #3b82f6; }
+        .section h3 { color: #1e40af; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+
+        .feature-card {
+            background-color: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h4 { color: #1e40af; font-size: 1.2rem; margin-bottom: 1rem; }
+        .feature-card p { margin-bottom: 0.75rem; color: #475569; }
+        .feature-card ul { margin-left: 1.5rem; margin-bottom: 0.75rem; }
+        .feature-card li { margin-bottom: 0.5rem; color: #475569; }
+
+        .badge {
+            display: inline-block;
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-interim {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .intro-text { font-size: 1.1rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+
+        strong { color: #1e40af; }
+
+        @media (max-width: 968px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #e2e8f0; }
+            .content { padding: 2rem 1.5rem; }
+            .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .header h1 { font-size: 2rem; }
+            .header h2 { font-size: 1.2rem; }
+        }
+
+        @media print {
+            .sidebar { display: none; }
+            .download-btn { display: none; }
+            .header { background: #1e3a8a; padding: 1.5rem; }
+            .container { max-width: 100%; }
+            .content { padding: 1.5rem; }
+            .section { display: block !important; page-break-after: auto; }
+            .feature-card { page-break-inside: avoid; }
+            h2, h3, h4 { page-break-after: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <h1>RecVue Product Update</h1>
+        <h2>Release 26.2</h2>
+    </div>
+    <div class="header-buttons">
+        <a href="https://drive.google.com/drive/folders/1E6qCXc_kUZEsiaedeD-jJv_Ywl2eKaiY" target="_blank" class="header-btn" style="text-decoration: none;">User Guides [PDF]</a>
+        <a href="https://drive.google.com/file/d/1C4DEUWFDmWRD5xzIfOwUNR7zLl_VHZmw/view?usp=sharing" target="_blank" class="header-btn" style="text-decoration: none;">Release Notes [PDF]</a>
+    </div>
+</div>
+
+<div class="container">
+    <nav class="sidebar">
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#introduction" class="nav-link active" onclick="showSection('introduction', event)">1. Overview</a>
+            </li>
+            <li class="nav-item">
+                <a href="#whats-new" class="nav-link" onclick="toggleSubmenu('whats-new', event)">2. What's New</a>
+                <ul class="sub-menu" id="whats-new-submenu">
+                    <li class="nav-item"><a href="#billing-new" class="nav-link" onclick="showSection('billing-new', event)">Billing &amp; Invoice Mgmt</a></li>
+                    <li class="nav-item"><a href="#partner-comp-new" class="nav-link" onclick="showSection('partner-comp-new', event)">Partner Compensation</a></li>
+                    <li class="nav-item"><a href="#revenue-new" class="nav-link" onclick="showSection('revenue-new', event)">Revenue Management</a></li>
+                    <li class="nav-item"><a href="#cost-new" class="nav-link" onclick="showSection('cost-new', event)">Cost Management</a></li>
+                    <li class="nav-item"><a href="#foundation-new" class="nav-link" onclick="showSection('foundation-new', event)">RecVue Foundation</a></li>
+                    <li class="nav-item"><a href="#usage-hub-new" class="nav-link" onclick="showSection('usage-hub-new', event)">Usage Hub</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#whats-changed" class="nav-link" onclick="toggleSubmenu('whats-changed', event)">3. What's Changed</a>
+                <ul class="sub-menu" id="whats-changed-submenu">
+                    <li class="nav-item"><a href="#billing-changed" class="nav-link" onclick="showSection('billing-changed', event)">Billing Management</a></li>
+                    <li class="nav-item"><a href="#revenue-changed" class="nav-link" onclick="showSection('revenue-changed', event)">Revenue Management</a></li>
+                    <li class="nav-item"><a href="#contract-changed" class="nav-link" onclick="showSection('contract-changed', event)">Contract Management</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#whats-fixed" class="nav-link" onclick="toggleSubmenu('whats-fixed', event)">4. What's Fixed</a>
+                <ul class="sub-menu" id="whats-fixed-submenu">
+                    <li class="nav-item"><a href="#contract-fixed" class="nav-link" onclick="showSection('contract-fixed', event)">Contract Management</a></li>
+                    <li class="nav-item"><a href="#billing-fixed" class="nav-link" onclick="showSection('billing-fixed', event)">Billing &amp; Invoice Mgmt</a></li>
+                    <li class="nav-item"><a href="#partner-comp-fixed" class="nav-link" onclick="showSection('partner-comp-fixed', event)">Partner Compensation</a></li>
+                    <li class="nav-item"><a href="#foundation-fixed" class="nav-link" onclick="showSection('foundation-fixed', event)">RecVue Foundation</a></li>
+                    <li class="nav-item"><a href="#revenue-fixed" class="nav-link" onclick="showSection('revenue-fixed', event)">Revenue Management</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#support" class="nav-link" onclick="showSection('support', event)">5. Support</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="content">
+
+        <!-- OVERVIEW -->
+        <section id="introduction" class="section">
+            <h2>Overview</h2>
+            <p class="intro-text">This release document provides a consolidated overview of new features, enhancements, and resolved issues across various RecVue product components. Each feature is accompanied by a concise description highlighting its business impact and functional value. For detailed guidance on specific configurations or implementation steps, please contact the RecVue Support Team.</p>
+            <p class="intro-text"><strong>Note:</strong> This document also lists features and solutions provided to certain customers in interim release 26.1.1.</p>
+            <p class="intro-text">The most significant updates in this release focus on key modules including RecVue Foundation, Contract Management, Billing Management, Partner Compensation, and Revenue Management.</p>
+            <h3>Key Areas Covered</h3>
+            <ul style="margin-left:1.5rem; color:#475569; margin-bottom:1rem;">
+                <li>Contract Management</li>
+                <li>Billing &amp; Invoice Management</li>
+                <li>Partner Compensation</li>
+                <li>Revenue Management</li>
+                <li>Cost Management</li>
+                <li>RecVue Foundation</li>
+                <li>RecVue Hub Platform</li>
+            </ul>
+            <h3>Document Sections</h3>
+            <ul style="margin-left:1.5rem; color:#475569;">
+                <li>What's New</li>
+                <li>What's Changed</li>
+                <li>What's Fixed</li>
+            </ul>
+        </section>
+
+        <!-- WHAT'S NEW – BILLING & INVOICE MANAGEMENT -->
+        <section id="billing-new" class="section">
+            <h2>What's New</h2>
+            <h3>Billing &amp; Invoice Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-35019</span>-->
+                <h4>Apex Bill Run Now Supports Multiple Selection for Key Fields</h4>
+                <p>You can now select multiple values across key fields when running an Apex Bill Run (formerly Turbo Bill Run), giving you greater flexibility and control over which orders get processed.</p>
+                <p>Previously, the Bill Run could only target a single order at a time. You can now use <strong>multi-select filtering</strong> to target specific groups of orders. This capability is controlled via profile configuration — activate the <em>"Enable Bill Run Multi Selection"</em> profile option to enable it.</p>
+                <p><strong>Multi-Select Fields:</strong></p>
+                <ul>
+                    <li>Order Type</li>
+                    <li>Business Unit</li>
+                    <li>Order Category</li>
+                    <li>Line Types</li>
+                    <li>Product Name</li>
+                    <li>Order #</li>
+                    <li>Territory</li>
+                </ul>
+                <p>For customers managing multiple Business Units or Order Types where multiple Bill Runs were previously required, this enhancement significantly reduces operational effort with flexible controls, smart AND-logic filtering, and targeted invoicing.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37983 &amp; CS-35407 &amp; CS-35327</span>-->
+                <h4>Enhanced Order Details Report</h4>
+                <p><strong>Enhancement 1 — Billing Status Column:</strong> A new Billing Status column has been added to the Order Details Report (Reports &gt; Order &gt; Order Details), positioned between the Billing Amount and Order Status columns. You can also use Billing Status as a filter when generating the report.</p>
+                <p><strong>Enhancement 2 — Bill-To Contact Number Columns:</strong> Two new columns — Order Bill To Contact Number (header-level) and Bill To Contact Number (line-level) — have been added to provide immediate visibility into contact information. These additions allow users to access essential contact details directly within the report output, eliminating manual cross-referencing.</p>
+                <p><strong>Enhancement 3 — "All Expired" Line Status Filter:</strong> A new "All Expired" option has been added to the Line Status filter. By selecting Order Status = Active combined with Line Status = All Expired, users can generate a report of all active orders with no lines actively billing — capturing orders where every line is in Expired, Terminated, or Canceled status.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-29096</span>-->
+                <h4>Rent Credit Policy — Early Lease Termination (Customer Specific)</h4>
+                <p>RecVue now supports a Cancellation Credit Policy that automates rent credit calculations when a rented asset is returned mid-billing cycle. Credits are tiered based on how early in the billing cycle the demobilization occurs — applying 30-day, 15-day, or 0-day credit rules — ensuring customers are billed fairly for actual usage.</p>
+                <p>All credit transactions are linked back to the original invoice lines, supporting revenue recognition compliance and maintaining a clean audit trail. The policy is configured at the division level to support specific business needs.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34201</span>-->
+                <h4>New Account and Site Date Columns Added to Customer Details Report</h4>
+                <p>To provide a more comprehensive view of customer lifecycles, four new date columns have been added to the Customer Details Report: <strong>Account Start Date</strong>, <strong>Account End Date</strong>, <strong>Site Start Date</strong>, and <strong>Site End Date</strong>. These have been integrated into the existing layout in a logical sequence for easy reading and contextual relevance.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37427</span>-->
+                <h4>Bill-To Contact Number Column Added to Billing Details &amp; Tax Report</h4>
+                <p>A new <strong>Bill-To Contact Number</strong> column is now available in the Billing Details &amp; Tax Report, located next to the Customer Account Name. This field automatically pulls the contact number from the Bill-To customer record associated with the contract. If no contact number is on file, the field remains blank.</p>
+                <p>This update streamlines reporting by allowing users to identify Bill-To contact information directly within the report, eliminating the need to cross-reference other records.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-12019</span>-->
+                <h4>New Asset Workbench for Centralized Asset Management</h4>
+                <p>A new Asset Workbench has been introduced, providing a single centralized location for tracking and managing assets throughout their lifecycle. It surfaces critical asset-level data — including current location and full history — and offers the following key capabilities:</p>
+                <ul>
+                    <li><strong>Streamlined Search:</strong> Quickly find assets using Simple Search (Asset #, Serial #, or Order #) or Advanced Search to filter by Site Number and Product.</li>
+                    <li><strong>Billing Details Tab:</strong> Full visibility into billing schedules and lines (both scheduled and billed), including invoice numbers, sorted by billing date (newest first).</li>
+                    <li><strong>Fulfillment Tab:</strong> A complete list of all fulfillment activities, organized in descending order by start date.</li>
+                    <li><strong>Integrated Tracking:</strong> View an asset's location history alongside its associated contract and order details for a complete 360-degree view.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-35777</span>-->
+                <h4>Access to Billing Tier Details from Contract and Workbench UIs</h4>
+                <p>You can now access Billing Tier details directly from the Order Line and Usage Workbench without navigating away from your current task.</p>
+                <ul>
+                    <li><strong>Direct Hyperlinks:</strong> The active Billing Tier name now appears as a clickable link on the Order Products page and the Usage Workbench.</li>
+                    <li><strong>Tier Overview Pop-up:</strong> Clicking the hyperlink opens a pop-up showing all tiers associated with that product, sorted with the most recent effective dates at the top.</li>
+                    <li><strong>Real-Time Active Tier Display:</strong> The system automatically identifies and displays the currently active tier based on today's date.</li>
+                    <li><strong>Seamless Navigation:</strong> From the pop-up, click directly into the active tier to view or update specific details (Buckets page).</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36795</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Enhanced AR (Billing) Adjustments Interface</h4>
+                <p>The following columns are now available in the Billing Adjustments interface via the Managed Workspace in the advanced UI framework:</p>
+                <ul>
+                    <li>Created By</li>
+                    <li>Line #</li>
+                    <li>Creation Date</li>
+                    <li>Credit Type</li>
+                    <li>Status</li>
+                    <li>Billing Period From</li>
+                    <li>Billing Period To</li>
+                    <li>Product Description</li>
+                </ul>
+                <p>The following attributes have also been added to the advanced search screen: Line #, Product Description, Bill From, Bill To, Created By, Created Date.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-30787</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Improved Primary User Interfaces with Audit Fields</h4>
+                <p>The <strong>Last Updated Date</strong> and <strong>Last Updated By</strong> attributes are now visible directly within the following screens, eliminating the need to navigate to the Audit Trail:</p>
+                <ul>
+                    <li>Order Search</li>
+                    <li>Order Products</li>
+                    <li>Order Deliveries (and Usage Workbench)</li>
+                    <li>Apex Bill Run</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- WHAT'S NEW – PARTNER COMPENSATION -->
+        <section id="partner-comp-new" class="section">
+            <h2>What's New</h2>
+            <h3>Partner Compensation</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37032</span>-->
+                <h4>Improved: Filtered Vendor Site Code Selection on Amendments</h4>
+                <p>The Vendor Site Code field on the Amendments screen now automatically filters search results based on the vendor selected for that specific line. Previously, searching returned an unfiltered list of all site codes in the system.</p>
+                <ul>
+                    <li>Reduces errors by eliminating irrelevant options.</li>
+                    <li>Saves time during the amendment process.</li>
+                    <li>Improves overall usability for multi-vendor contracts.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-35854</span>-->
+                <h4>Edit Vendor and Vendor Site on Active Lines via Amendment</h4>
+                <p>Users can now update Vendor and Vendor Site details on active contract lines through the Amendment UI, provided the line's payment status is "Scheduled" (unpaid).</p>
+                <p>Previously, once a contract line was active, Vendor fields became locked — requiring manual workarounds or technical support to correct data entry errors. This enhancement:</p>
+                <ul>
+                    <li><strong>Empowers Users:</strong> Correct vendor assignments without back-end intervention.</li>
+                    <li><strong>Reduces Manual Effort:</strong> Eliminates complex workarounds to fix data entry errors.</li>
+                    <li><strong>Streamlines Workflows:</strong> Ensures payment records are routed to the correct vendor before processing.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-33901 / CS-34050</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Standardized Unit Cost Display in Partner Module</h4>
+                <p>The Partner Module has been updated to ensure unit costs are calculated and displayed with consistent precision across the platform. The new <strong>"Unit Cost Precision"</strong> profile option allows administrators to define a uniform number of decimal places for unit cost values across the entire Partner Module, including:</p>
+                <ul>
+                    <li>Cost column in Product Summary screen</li>
+                    <li>Cost field in Product Payable Header screen</li>
+                    <li>Unit Cost column in Payment Schedule Summary Screen</li>
+                    <li>Unit Cost field in Payment Schedule Detail Screen</li>
+                    <li>Cost column in Payment Lines Summary Screen</li>
+                    <li>Cost field in the Payment Lines Details screen</li>
+                    <li>Price column in AP Tier Pricing Screen</li>
+                    <li>Cost column in Deliveries Summary screen</li>
+                    <li>Cost field in the Delivery Details Screen</li>
+                    <li>Unit Cost column in the Review Pay Amount screen</li>
+                    <li>Unit Price in the Paid screen</li>
+                    <li>Unit Cost and cost unit price fields in the Manual Adjustment against Invoice screen</li>
+                    <li>CM Unit Price field in the Payment Adjustment - On Account screen</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38113</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Improved Pay Contract Amendments</h4>
+                <p>The following improvements have been made to pay contract amendments:</p>
+                <ul>
+                    <li><strong>Vendor Alignment:</strong> The validation process when transitioning contracts from Evergreen to Non-Evergreen status has been refined to ensure data consistency. The system now enforces: "Update the Vendor end date to Non-Evergreen before setting this line to Non-Evergreen."</li>
+                    <li><strong>Bulk Update:</strong> If you update both the Vendor and Line end dates simultaneously, the system processes all standard validations. Upon success, both records will correctly reflect the new Non-Evergreen status.</li>
+                </ul>
+                <p><em>Note: Line End Date and Vendor End Date must be updated simultaneously.</em></p>
+            </div>
+        </section>
+
+        <!-- WHAT'S NEW – REVENUE MANAGEMENT -->
+        <section id="revenue-new" class="section">
+            <h2>What's New</h2>
+            <h3>Revenue Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-32426</span>-->
+                <h4>Performance Boost for Revenue GL Processes</h4>
+                <p>The speed and efficiency of the Revenue GL Transfer process — including GL Review and Journal Entry (JE) Creation — has been significantly improved. These optimizations reduce system load and process data much faster than before.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-33886</span>-->
+                <h4>Support for Special Characters in Revenue Fields</h4>
+                <p>Several key revenue configuration screens now support special characters in text fields. You can now use the following characters within Performance Obligation, Accounting Event, and COA Segment Rule configurations:</p>
+                <ul>
+                    <li>Hyphen (-)</li>
+                    <li>Hashtag (#)</li>
+                    <li>Ampersand (&amp;)</li>
+                    <li>Period (.)</li>
+                    <li>Comma (,)</li>
+                    <li>Asterisk (*)</li>
+                    <li>Apostrophe (')</li>
+                </ul>
+                <p><em>Note: Support for Cost configurations is planned for a future update.</em></p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-26585</span>-->
+                <h4>Bulk Change POB for Revenue Lines</h4>
+                <p>A new dedicated Change POB interface now allows you to update Performance Obligations for multiple revenue lines simultaneously. Previously, these changes had to be made manually — one line at a time — which was slow and error-prone for large contracts.</p>
+                <ul>
+                    <li><strong>Bulk Processing:</strong> Apply the same POB update or unique changes to multiple lines at once using bulk and parallel processing.</li>
+                    <li><strong>Reduced Manual Effort:</strong> Significantly less time spent on high-volume revenue data management.</li>
+                    <li><strong>Parallel Execution:</strong> Process multiple POB updates concurrently for faster throughput.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-31228</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Multi Legal Entity Selection for GL Transfers</h4>
+                <p>The GL Transfer interface now supports simultaneous processing of GL transfers for multiple legal entities, removing the need to create separate GL transfer batches for each entity and streamlining the month-end close process.</p>
+                <ul>
+                    <li><strong>Multi-Select Enabled:</strong> The legal entity field now supports multi-selection.</li>
+                    <li><strong>Dynamic Visibility:</strong> All chosen legal entities appear clearly on screen before processing for easy verification.</li>
+                    <li><strong>Flexible Selection:</strong> Select all relevant legal entities at once or hand-pick specific ones based on current business requirements.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38348</span>-->
+                <h4>CACL Programs Hidden When Contract Liability Feature Is Disabled</h4>
+                <p>To provide a cleaner and more intuitive experience, the CACL Scheduling and CACL Accounting programs are now hidden from the Revenue Interface when the "Enable Contract Liability Feature" profile option is disabled.</p>
+                <p>Previously, these programs remained visible and often showed "Failure" statuses even when the feature wasn't in use, causing unnecessary confusion. With this update, the interface — including independent processes like Revenue Release, Auto Events, and Accounting — dynamically hides these options based on your profile settings, ensuring you only see the tools relevant to your current configuration.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S NEW – COST MANAGEMENT -->
+        <section id="cost-new" class="section">
+            <h2>What's New</h2>
+            <h3>Cost Management</h3>
+            <p class="intro-text">To ensure seamless operational flow, the <strong>RecVue Cost Management</strong> module is being developed to align directly with existing modules, creating an integrated ecosystem for financial data. The following are the enhancements of Cost Management.</p>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36152</span>-->
+                <h4>Enhanced Cost Accruals for Estimated Return Services</h4>
+                <p>RecVue now internally calculates cost accruals for services related to estimated returns, removing the need for manual or external calculations. The system handles these accruals automatically based on predefined rules.</p>
+                <p><strong>Scope and Eligibility:</strong></p>
+                <ul>
+                    <li><strong>Included:</strong> Modular products on Lease contracts.</li>
+                    <li><strong>Excluded:</strong> Containers and sale-type contracts.</li>
+                </ul>
+                <p><strong>How It Works:</strong> The system calculates two types of estimated final bill expenses and amortizes them across the entire lease term:</p>
+                <ul>
+                    <li><strong>Return Haulage Expense:</strong> Calculated at 100% of the delivery haulage expense for the same asset.</li>
+                    <li><strong>Other Dismantle Expenses:</strong> Calculated at 80% of the list price found in Order Management.</li>
+                </ul>
+                <p><strong>Key Accounting Details:</strong> GL Allocation is automatically directed to one of two GL expense accounts based on your specific "bill-how" rules. Certain final bill item codes — such as cleaning fees — are excluded from amortization. This enhancement ensures lease cost recognition is more accurate, automated, and aligned with the equipment's actual lifecycle.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36476</span>-->
+                <h4>Introduction of the Accrual Workbench for Consolidated Visibility</h4>
+                <p>The new Accrual Workbench is a centralized dashboard designed to streamline how you manage and view cost and revenue accruals. Previously, viewing accrual data and related accounting entries required navigating multiple screens or running separate reports.</p>
+                <ul>
+                    <li><strong>Centralized Access:</strong> Easily accessible via Menu &gt; Accrual Workbench.</li>
+                    <li><strong>Unified Data:</strong> View both Accrual Schedules and their associated accounting entries side-by-side on one screen.</li>
+                    <li><strong>Detailed Reporting:</strong> The interface displays high-level workbench data as well as granular schedule details, following the standard Cost &amp; Accrual column specifications.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36475</span>-->
+                <h4>Introduction of the Cost Workbench for Consolidated Visibility</h4>
+                <p>The new Cost Workbench is a centralized interface that gives you a clear, comprehensive view of your cost data in one place. Previously, tracking cost schedules and their related accounting entries required navigating through various parts of the system.</p>
+                <ul>
+                    <li><strong>Centralized Access:</strong> Found easily under Revenue &gt; Cost Workbench.</li>
+                    <li><strong>Unified View:</strong> See Cost Schedules and their associated Accounting entries side-by-side without switching screens.</li>
+                    <li><strong>Deep Visibility:</strong> The workbench includes both high-level summary columns and granular detail columns, allowing you to drill down into the specifics of each cost schedule.</li>
+                </ul>
+                <p>This enhancement saves time and improves accuracy by providing a single source of truth for monitoring your cost accounting data.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38834</span>-->
+                <h4>Accounting Visibility in the Cost &amp; Accrual Workbench</h4>
+                <p>You can now view accounting entry details directly within the Cost &amp; Accrual Workbench. A dedicated set of accounting columns has been added to the interface, allowing you to instantly review the financial side of cost and accrual records without navigating between different screens.</p>
+                <ul>
+                    <li><strong>In-Context Accounting:</strong> Review GL-level details alongside accrual data on the same screen.</li>
+                    <li><strong>Streamlined Auditing:</strong> Eliminates the need to cross-reference separate accounting screens.</li>
+                    <li><strong>Single Location Management:</strong> Manage, audit, and verify cost and accrual records from one place.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- WHAT'S NEW – RECVUE FOUNDATION -->
+        <section id="foundation-new" class="section">
+            <h2>What's New</h2>
+            <h3>RecVue Foundation</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34178</span>-->
+                <h4>Automated User Management with SCIM 2.0</h4>
+                <p>RecVue now supports SCIM 2.0 (System for Cross-domain Identity Management), allowing your organization to connect RecVue directly to your Identity Provider — such as Okta, Azure AD, OneLogin, or Google Workspace — to automate user lifecycle management.</p>
+                <ul>
+                    <li><strong>Automated User Lifecycle Management:</strong> Users are automatically created, updated, or deactivated in RecVue the moment changes are made in your identity provider. This eliminates manual user setup and ensures access is removed instantly when a user leaves.</li>
+                    <li><strong>Secure OAuth 2.0 Authentication:</strong> All synchronization endpoints are protected by OAuth 2.0 tokens with strict access controls and a full audit log of every provisioning action.</li>
+                </ul>
+                <p>This update streamlines IT operations, enhances security, and ensures that your user list is always accurate and up to date.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34160</span>-->
+                <h4>Improved Custom Objects Functionality</h4>
+                <p>The Custom Objects framework has been significantly enhanced, giving you greater control, security, and flexibility to manage your unique data within the system.</p>
+                <p><strong>Navigation Relocated:</strong></p>
+                <table style="width:100%; margin-top:0.5rem; margin-bottom:0.75rem;">
+                    <tr>
+                        <th style="padding:8px; background:#f1f5f9;">New Navigation</th>
+                        <th style="padding:8px; background:#f1f5f9;">Old Navigation</th>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px;">Main menu &gt; Extensions &gt; Custom Object</td>
+                        <td style="padding:8px;">Main menu &gt; System Administrator &gt; Custom</td>
+                    </tr>
+                </table>
+                <ul>
+                    <li><strong>Streamlined Import:</strong> The import functionality has been moved directly into the Custom Objects UI. You can now download templates and trigger imports without navigating to a separate screen.</li>
+                    <li><strong>Granular Permissions:</strong> A permission-based access control model has been introduced. When a new custom object is created, three default permissions are automatically generated: <em>View</em>, <em>Create</em>, and <em>Delete</em>.</li>
+                    <li><strong>Expanded Relationships:</strong> Custom objects can now be added to related entities in multiple places across the application. Previously, this was limited to the order header level only.</li>
+                </ul>
+                <p>These updates transform Custom Objects into a more robust and flexible tool for managing specialized business data.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S NEW – USAGE HUB -->
+        <section id="usage-hub-new" class="section">
+            <h2>What's New</h2>
+            <h3>RecVue Hub Platform — Usage Hub</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37173</span>-->
+                <h4>User Permissions, KPIs, and UI Updates</h4>
+                <p>The interface name has been updated from "Dashboard Usage Hub" to <strong>"Usage Hub"</strong>.</p>
+                <p><strong>New Permissions:</strong></p>
+                <ul>
+                    <li><strong>ViewUsageHub:</strong> Lets users access the Usage Hub menu and view details. They can navigate freely but cannot edit existing batches or records.</li>
+                    <li><strong>ManageUsageHub:</strong> Enables users to add batches, reprocess data, and import files. They can also edit error records and save updates.</li>
+                </ul>
+                <p><strong>KPIs Added to Usage Hub Summary Screen:</strong></p>
+                <ul>
+                    <li><strong>Total:</strong> Number of usage batches that have been processed.</li>
+                    <li><strong>Success:</strong> Number of usage batches where all records processed successfully.</li>
+                    <li><strong>Error:</strong> Number of usage batches where all records have errors.</li>
+                    <li><strong>Warning:</strong> Number of usage batches with at least one record in error status.</li>
+                </ul>
+                <p><strong>Batch Name Field in Upload File UI:</strong> An optional Batch Name field has been added. If provided, it uses your entered name along with the system date and timestamp. If skipped, the system generates a default batch name.</p>
+                <p>The <strong>SFTP Source</strong> field name has been renamed to <strong>SFTP File Extension</strong>.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-33912</span>-->
+                <h4>Usage Hub — Manage Workspace Column Updates</h4>
+                <p>The Manage Workspace now comes with the following columns pre-configured by default:</p>
+                <ul>
+                    <li>Total — Total records in the Batch</li>
+                    <li>Success — Total records processed successfully</li>
+                    <li>Error — Total records in error status</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-35986</span>-->
+                <h4>API Support for Usage Hub Batches</h4>
+                <p>RecVue now supports API-submitted usage data, enabling the automatic creation of batches in the Usage Hub in addition to Usage Hub DML. Both CISCO and Coupa import sources are supported, with validation triggered automatically after import — no manual steps needed. Failed validation records remain in the Usage Hub for manual correction.</p>
+                <p><strong>New Profile Option — "Use Usage DML API for Usage Hub":</strong></p>
+                <ul>
+                    <li><strong>Y:</strong> Enables the API specifically for Usage Hub functionality.</li>
+                    <li><strong>N (default):</strong> Uses the API for standard Usage DML operations.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37066</span>-->
+                <h4>Customer Specific: V3 Review Accounting Report Enhancement</h4>
+                <p>The V3 Review Accounting Report has been updated so that the Debit and Credit columns now only include transactions that have been successfully transferred to the General Ledger (GL Transfer Flag = "Y").</p>
+                <ul>
+                    <li><strong>Improved Accuracy:</strong> Report totals now align strictly with data successfully transferred.</li>
+                    <li><strong>Better Reconciliation:</strong> Eliminates confusion caused by pending or un-transferred entries appearing in final totals.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- WHAT'S CHANGED – BILLING MANAGEMENT -->
+        <section id="billing-changed" class="section">
+            <h2>What's Changed</h2>
+            <h3>Billing Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36518</span>-->
+                <h4>Updated Label Names in Order Line Details UI</h4>
+                <p><strong>Label Update:</strong> The term "Components" has been renamed to <strong>"Charges"</strong>. This update is reflected in both the action menu and the grid header.</p>
+                <p><strong>New "Line Type" Column:</strong> A new, read-only Line Type column has been added to the Charges grid, positioned next to the Component Type column.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-33716</span>-->
+                <h4>UI Renames: AR Adjustments and Turbo Bill Run</h4>
+                <p>The following UI names have been updated:</p>
+                <table style="width:100%; margin-top:0.75rem;">
+                    <tr>
+                        <th style="padding:8px; background:#f1f5f9;">Old Name</th>
+                        <th style="padding:8px; background:#f1f5f9;">New Name</th>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px;">AR Adjustments</td>
+                        <td style="padding:8px;">Billing Adjustments</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px;">Turbo Bill Run</td>
+                        <td style="padding:8px;">Apex Bill Run</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- WHAT'S CHANGED – REVENUE MANAGEMENT -->
+        <section id="revenue-changed" class="section">
+            <h2>What's Changed</h2>
+            <h3>Revenue Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37608</span>-->
+                <h4>Enhanced POB Auto-Release for One-Time and Recurring Lines</h4>
+                <p>The POB Auto Release feature has been enhanced to now support <strong>One-Time</strong> and <strong>Recurring</strong> line types when the Auto Event Type is set to Amount. Previously, these line types could trigger errors because they only supported standard revenue schedules and lacked a path for usage-driven recognition.</p>
+                <p>With this update, the system can successfully process auto events for these lines based on the specific usage amount and event date, ensuring revenue is scheduled accurately while maintaining the proper sequence of events.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S CHANGED – CONTRACT MANAGEMENT -->
+        <section id="contract-changed" class="section">
+            <h2>What's Changed</h2>
+            <h3>Contract Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-35932</span>-->
+                <h4>Billing Details &amp; Tax Report: Bill Run Name Dropdown Sort Order</h4>
+                <p><strong>Previous Behavior:</strong> The Bill Run Name parameter dropdown displayed bill runs in ascending order (oldest first), forcing users to scroll through the entire list to reach the most recent bill runs.</p>
+                <p><strong>New Behavior:</strong> The Bill Run Name dropdown in the Billing Details and Tax report (Reports &gt; Billing &gt; Billing Details and Tax) now displays bill runs sorted by creation date in <strong>descending order</strong>, with the most recently created bill runs appearing at the top of the list.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S FIXED – CONTRACT MANAGEMENT -->
+        <section id="contract-fixed" class="section">
+            <h2>What's Fixed</h2>
+            <h3>Contract Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-35080</span>-->
+                <h4>Audit History: Order Amendment Fix</h4>
+                <p>Previously, when an order was amended or a status was changed via automated packages, the audit history would occasionally display incorrect or incomplete information.</p>
+                <p><strong>The Fix:</strong> The system now accurately captures and records every status change at both the order and line levels. Whether you update an order manually or through a package, the audit trail will consistently show the correct details.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37212</span>-->
+                <h4>Fixed: Order Type Display Issue</h4>
+                <p>Resolved an issue where the Order Type would disappear from the screen immediately after being selected during order creation. While the system successfully saved the selection to the database, the UI failed to display it.</p>
+                <p><strong>The Fix:</strong></p>
+                <ul>
+                    <li><strong>Field Synchronization:</strong> Corrected a naming mismatch between front-end and back-end systems.</li>
+                    <li><strong>Standardized Lookup:</strong> The system now uses a standardized API to fetch order types based on your specific organization.</li>
+                    <li><strong>Better Error Handling:</strong> The UI will now remain stable and informative instead of failing silently.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37533</span>-->
+                <h4>Fixed: "Sell To Site Does Not Have the Contact Specified" Error</h4>
+                <p>Resolved a bug that prevented users from updating the Sell-To location on orders, which previously triggered the error "Sell To Site does not have the contact specified."</p>
+                <p><strong>The Issue:</strong> When changing the Sell-To Location, the system mistakenly looked for a Customer ID instead of a Site ID, blocking the update. This primarily impacted partially billed or paid orders.</p>
+                <p><strong>The Fix:</strong> The search logic has been corrected to reference the proper Site ID field. Users can now update Sell-To and Bill-To sites without validation errors. The fix applies to all order statuses, including those partially billed or paid.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36452</span>-->
+                <h4>Fixed: Copy Line Issue for Reverse-Terminated Lines</h4>
+                <p>Users encountered an error when trying to modify the line date while copying a reverse-terminated line. The root cause was a special character in the Bill to Contact field. The issue is now resolved and the copy line functionality works correctly.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34942</span>-->
+                <h4>Fixed: Termination Date Restrictions on Evergreen Orders</h4>
+                <p>Resolved an issue that prevented users from selecting a valid termination date for Evergreen orders. The system was incorrectly capping the date picker at the order-level end date instead of the furthest line-level end date.</p>
+                <p><strong>The Fix:</strong></p>
+                <ul>
+                    <li><strong>For Evergreen Orders:</strong> The system now prioritizes the furthest line-level end date. If unavailable, it uses the order-level evergreen date.</li>
+                    <li><strong>For Standard Orders:</strong> The logic continues to use the standard effective end date.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38127</span>-->
+                <h4>Improved Sorting in the Amendment Workbench</h4>
+                <p>Previously, the Products grid in the Amendment Workbench sorted items only by line number, causing products from different orders to be mixed together.</p>
+                <p><strong>The Fix:</strong> The grid now follows a two-step sorting process:</p>
+                <ul>
+                    <li><strong>Primary Sort:</strong> Items are grouped by Order ID (most recent orders at the top).</li>
+                    <li><strong>Secondary Sort:</strong> Within each order, items are organized by Line Number in ascending order.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34560</span>-->
+                <h4>Fixed: New Lines Now Included in Future-Dated Terminations</h4>
+                <p>Previously, if a user added new service lines to an order after a future termination date had been set, those new lines were left out — causing amendments to remain stuck in "Partially Processed" status.</p>
+                <p><strong>The Fix:</strong></p>
+                <ul>
+                    <li><strong>Complete Processing:</strong> When an order is terminated, all associated lines — including any added after the initial amendment — are automatically terminated on the same future date.</li>
+                    <li><strong>Proactive Alerts:</strong> A warning message now appears if you try to add a new service line to an order already scheduled for termination.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34291</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Fully Billed Lines Can Now Be Updated via Amendment</h4>
+                <p>You can now extend the duration of lines that have already been fully billed using the Update Amendment feature. Previously, the system prevented users from modifying the end date of a line once billing was complete. Following a detailed feasibility study, the restriction was removed to provide more flexibility.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37533</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Order Header: Sell-To-Site Update Fix</h4>
+                <p>Resolved a technical error that prevented users from updating location details within the Customer and Contacts tab. Previously, changing the Sell-To-Site location and clicking "Save" would trigger an error. This has been resolved — you can now update and save the Sell-To-Site location without encountering exceptions.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38146</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Order Header: Attribute 21V Field Fix</h4>
+                <p>The Attribute 21V field in the Additional Information tab was incorrectly configured as a dropdown menu, preventing users from manually entering unique information. It has been converted to a <strong>free-text field</strong> — you can now type and save custom data without being restricted to a predefined list.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34884</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Improved Handling of Names with Apostrophes</h4>
+                <p>Resolved an issue where names containing apostrophes (e.g., O'Malley) triggered error messages during searches or order saves. You can now successfully search for and save orders using a customer's full name across all bill-to and sell-to fields at both the header and line levels.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S FIXED – BILLING & INVOICE MANAGEMENT -->
+        <section id="billing-fixed" class="section">
+            <h2>What's Fixed</h2>
+            <h3>Billing &amp; Invoice Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37248</span>-->
+                <h4>Resolved GBS Execution for Non-Manual Order Lines</h4>
+                <p><strong>The Issue:</strong> For orders with recurring line types at manual frequency, users were unable to run GBS for lines with billing frequencies like monthly or quarterly.</p>
+                <p><strong>The Fix:</strong> The GBS option at the order header level is now enabled, allowing users to run GBS for non-manual order lines even when manual lines are present. GBS automatically skips manual order lines.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38021</span>-->
+                <h4>Fixed: Evergreen Stub Schedule Causing Billing Failures</h4>
+                <p><strong>The Issue:</strong> For evergreen billing lines, the last schedule in the sequence was generated as a STUB schedule (partial/short-period). If that stub got billed before the evergreen line was extended, the downstream scheduling logic became corrupted.</p>
+                <p><strong>The Fix:</strong> Changes were made to the evergreen end-date calculation logic — specifically how it handles the end date in relation to the Bill Offset setting. The last schedule in the sequence is now always generated as a standard schedule, preventing billing and scheduling failures upon line extension.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-34909</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Date Alignment Fix: Contract Schedules</h4>
+                <p>Resolved a synchronization issue between contract dates and their corresponding billing schedules. Previously, if a user updated the Line Start Date or End Date after manual schedules had already been generated, the schedules would not automatically align with the new contract term.</p>
+                <p><strong>The Fix:</strong> A new validation check has been introduced. If you attempt to change line dates, the system will now display a guidance message to ensure your contract duration and financial schedules always remain in sync.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S FIXED – PARTNER COMPENSATION -->
+        <section id="partner-comp-fixed" class="section">
+            <h2>What's Fixed</h2>
+            <h3>Partner Compensation</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38704</span>-->
+                <h4>Bug Fix: Payment Schedules Not Updating on Vendor/Line End Date Extensions</h4>
+                <p>Fixed a bug in the GPS system that prevented payment schedules from regenerating during the New Amendment process. Previously, if a contract was extended beyond five years or past its "Evergreen" date, the system would fail to create updated schedules.</p>
+                <p>This issue specifically impacted orders with Order Intent = BOTH and Pricing Type = Usage with Delivery Pricing lines. Payment schedules will now regenerate correctly through the new amended end date, regardless of how far into the future the contract is extended — for both partially paid and fully paid lines.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36427</span>-->
+                <h4>Resolved: Zero-Quantity Deliveries Now Reflected in Payment Schedules</h4>
+                <p>Fixed a bug where importing a delivery with a quantity of zero for a previously paid line failed to update the payment schedules. Although the import would succeed technically, the system did not create the necessary "zero-quantity" adjustment entries.</p>
+                <p><strong>The Fix:</strong> Zero-quantity deliveries are now correctly recorded as adjustment entries, ensuring payment schedules accurately reflect these imports and audit trails remain complete.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36421</span>-->
+                <h4>Resolved: Null Amounts Now Correctly Display as Zero</h4>
+                <p>Fixed a display issue where payment amounts appeared blank (null) instead of showing 0 for deliveries with zero quantity or cost, regardless of whether data was brought in via Standard Delivery Import, DML, or the Usage Hub.</p>
+                <p>The system now correctly displays <strong>0</strong> in the payment schedule amount field for these cases, ensuring data consistency and a uniform experience across all delivery import methods.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-35562</span>-->
+                <h4>Resolved: Incorrect Year Displayed in Amendment Pop-up</h4>
+                <p>Fixed a visual bug where the Effective Date in the Amendment Update pop-up was incorrectly adding one year to the date shown. For example, a date saved as December 31, 2025 would appear as December 31, 2026. The database value was always correct, but the display was misleading. The pop-up now correctly displays the actual date stored in the system.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-31620 &amp; CS-34922</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Monthly Schedule Period Date Shift for Start Dates 28–30</h4>
+                <p><strong>Impacted Modules:</strong> Billing (Billing Schedules) &amp; Partner Compensation (Payment Schedules)</p>
+                <p><strong>The Problem:</strong> For monthly schedules where the cycle start date falls on the 28th, 29th, or 30th of a month, the system was permanently shifting all future period dates after passing through February. Once the schedule reached February — where the intended start date didn't exist — Oracle's ADD_MONTHS function snapped to the last day of the month, and that anchor persisted for every subsequent period.</p>
+                <p><strong>The Fix:</strong> The system now correctly handles February as a point-in-time exception. The February period compresses to fit the shorter month, but all subsequent periods resume the original start-day pattern.</p>
+                <p>A new profile option <strong>[February Schedule Sync]</strong> has been introduced:</p>
+                <ul>
+                    <li><strong>Disabled (default):</strong> System uses existing payment schedule logic.</li>
+                    <li><strong>Enabled:</strong> System applies the new logic for supported 28th-of-the-month scenarios.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37766</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Pay Run Accuracy for In-Advance Payments</h4>
+                <p>Resolved an issue where entering a value in the Attribute_1V field caused the Pay Run engine to incorrectly select pay lines beyond the "Pay Through Date" for In-Advance payment types. The engine now correctly identifies and selects only eligible pay lines based on your input.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S FIXED – RECVUE FOUNDATION -->
+        <section id="foundation-fixed" class="section">
+            <h2>What's Fixed</h2>
+            <h3>RecVue Foundation</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37661</span>-->
+                <h4>Enhanced User-Specific Employee GET API</h4>
+                <p>The user-specific Get Employee API has been improved to retrieve employee details by employee number, making it easier and faster to retrieve the required records.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-36897</span>-->
+                <h4>Import Source Validation Fix</h4>
+                <p>Resolved a validation error that prevented users from creating new Import Sources. Previously, the system blocked creation if the name matched an existing one, even when the Source IDs differed.</p>
+                <p><strong>The Result:</strong> You can now successfully create Import Sources with duplicate names, provided they have unique Source IDs, offering more flexibility in how you label your data sources.</p>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-38387</span>-->
+                <h4>Missing Data in Billing Lines API</h4>
+                <p>Resolved an issue where the Bill Run Billing Lines API (<code>GET /api/v2.0/billrun/{id}/billinglines</code>) returned null records for certain bill runs.</p>
+                <p><strong>The Issue:</strong> An internal database mapping error caused the system to look for records using an incorrect identifier. Because this identifier was sometimes empty, the API failed to retrieve the associated billing data.</p>
+                <p><strong>The Fix:</strong> The data mapping has been corrected to use the proper unique ID. The API now reliably returns all billing line records as expected.</p>
+            </div>
+        </section>
+
+        <!-- WHAT'S FIXED – REVENUE MANAGEMENT -->
+        <section id="revenue-fixed" class="section">
+            <h2>What's Fixed</h2>
+            <h3>Revenue Management</h3>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-37324</span>-->
+                <h4>Corrected Revenue Allocation During POB Changes</h4>
+                <p>Resolved an issue where changing a Performance Obligation (POB) on RSSP lines caused the system to miscalculate net revenue. Previously, the "Change POB" process incorrectly used the total selling price to update SSP values, failing to account for revenue already allocated within the Revenue Contract. This could cause allocated revenue to exceed the original contract value (e.g., a $1.26M contract inflated to $2.4M).</p>
+                <ul>
+                    <li><strong>Accurate Revenue Totals:</strong> RSSP values are now correctly limited by the total revenue allocated in the contract.</li>
+                    <li><strong>Prevention of Over-allocation:</strong> Revenue cannot exceed the original contract value during a POB change.</li>
+                    <li><strong>Reliable Reporting:</strong> Prevents incorrect impacts on Contract Asset and Contract Liability (CACL) balances.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <!--<span class="badge">CS-30781</span>-->
+                <h4>Fixed: Waterfall Report 1-Cent Accuracy Issue</h4>
+                <p>Resolved a small but impactful 1-cent ($0.01) discrepancy in the period columns of the Waterfall Report. This only occurred when selecting the Contractual Revenue type; Net Revenue reports were unaffected.</p>
+                <p><strong>Root Cause:</strong> A field called PERIOD_SELL_AMT was accidentally defaulting to $0.00 instead of the actual value when it couldn't find a Standalone Selling Price (SSP).</p>
+                <p><strong>The Fix:</strong> The logic for the Period Sell Amount calculation has been updated. If the system doesn't find an SSP Revenue Amount, it now automatically pulls the correct revenue amount instead of defaulting to zero. The Waterfall Report is now 100% accurate for both Contractual Revenue and Net Revenue report types.</p>
+                <p><em>Note: This fix is included in the 26.2 update. Please ensure your system is updated to this version to see the changes.</em></p>
+            </div>
+        </section>
+
+        <!-- SUPPORT -->
+        <section id="support" class="section">
+            <h2>Support</h2>
+            <div class="feature-card">
+                <h4>Contact RecVue Support</h4>
+                <p>For further information or any technical support, please contact:</p>
+                <p><strong>Email:</strong> <a href="mailto:support@recvue.com" style="color:#1e40af;">support@recvue.com</a></p>
+                <p><strong>Phone:</strong> +1-650-620-7788</p>
+            </div>
+            <div class="feature-card">
+                <h4>Copyright</h4>
+                <p>This document is the property of and is proprietary to RECVUE. It is to be disclosed in whole or in part only with the expressed written authorization of RECVUE and shall not be duplicated or used, in whole or in part, without written permission. It shall be returned to RECVUE upon request.</p>
+                <p>Copyright &copy; 2026–2027 RECVUE, Inc. All rights reserved. All trademarks, trade names, service marks, and logos referenced herein belong to their respective companies.</p>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer style="text-align:center; padding:1rem; background:#f1f5f9; color:#64748b; font-size:0.9rem;">
+    &copy; RecVue, Inc 2026 All Rights Reserved
+</footer>
+
+<script>
+    function showSection(sectionId, event) {
+        if (event) event.preventDefault();
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        const sel = document.getElementById(sectionId);
+        if (sel) sel.classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        if (event) event.currentTarget.classList.add('active');
+        document.querySelector('.content').scrollTop = 0;
+    }
+
+    function toggleSubmenu(menuId, event) {
+        event.preventDefault();
+        const submenu = document.getElementById(menuId + '-submenu');
+        const isActive = submenu.classList.contains('active');
+        document.querySelectorAll('.sub-menu').forEach(m => m.classList.remove('active'));
+        if (!isActive) submenu.classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    function downloadPDF() { window.print(); }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        showSection('introduction');
+    });
+</script>
+</body>
+</html>
