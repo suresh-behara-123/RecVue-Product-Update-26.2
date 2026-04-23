@@ -23,20 +23,21 @@
             justify-content: space-between;
             align-items: center;
         }
-        .header-buttons {
+		.header-buttons {
             display: flex;
             gap: 1rem;
         }
 
         .header-btn {
             padding: 0.75rem 1.5rem;
-            background: powderblue;
+            background: powderblue; <!--repeating-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);-->
             border: 1px solid rgba(0, 217, 255, 0.2);
-            color: #00008B;
+       <!-- color: #E8EDF4;-->
+		    color: #FFFFFF;
             border-radius: 8px;
             font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            text-decoration: none;
+		    font-size: 0.9rem;
+		    text-decoration: none;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -90,7 +91,7 @@
         }
         .download-btn:hover { background-color: #00b3b3; }
         .download-btn:active { background-color: #004d4d; }
-
+		
         .container {
             display: flex;
             max-width: 1400px;
@@ -200,9 +201,10 @@
         <h1>RecVue Product Update</h1>
         <h2>Release 26.2</h2>
     </div>
-    <div class="header-buttons">
-        <a href="https://drive.google.com/drive/folders/1E6qCXc_kUZEsiaedeD-jJv_Ywl2eKaiY" target="_blank" class="header-btn" style="text-decoration: none;">User Guides [PDF]</a>
-        <a href="https://drive.google.com/file/d/1C4DEUWFDmWRD5xzIfOwUNR7zLl_VHZmw/view?usp=sharing" target="_blank" class="header-btn" style="text-decoration: none;">Release Notes [PDF]</a>
+    <!--<button class="download-btn" onclick="downloadPDF()">Download PDF</button>-->
+	<div class="header-buttons">
+            <button class="header-btn glow-on-hover" onclick="window.open('https://drive.google.com/drive/folders/1E6qCXc_kUZEsiaedeD-jJv_Ywl2eKaiY', '_blank')"><a "https://drive.google.com/drive/folders/1E6qCXc_kUZEsiaedeD-jJv_Ywl2eKaiY" class="button-link style="text-decoration: none;">User Guides [PDF]</a></button>
+            <button class="header-btn glow-on-hover" onclick="window.open('https://drive.google.com/file/d/1C4DEUWFDmWRD5xzIfOwUNR7zLl_VHZmw/view?usp=sharing', '_blank')"><a "https://drive.google.com/file/d/1C4DEUWFDmWRD5xzIfOwUNR7zLl_VHZmw/view?usp=sharing" class="button-link style="text-decoration: none;">Release Notes [PDF]</a></button>
     </div>
 </div>
 
@@ -235,7 +237,6 @@
                 <a href="#whats-fixed" class="nav-link" onclick="toggleSubmenu('whats-fixed', event)">4. What's Fixed</a>
                 <ul class="sub-menu" id="whats-fixed-submenu">
                     <li class="nav-item"><a href="#contract-fixed" class="nav-link" onclick="showSection('contract-fixed', event)">Contract Management</a></li>
-                    <li class="nav-item"><a href="#billing-fixed" class="nav-link" onclick="showSection('billing-fixed', event)">Billing &amp; Invoice Mgmt</a></li>
                     <li class="nav-item"><a href="#partner-comp-fixed" class="nav-link" onclick="showSection('partner-comp-fixed', event)">Partner Compensation</a></li>
                     <li class="nav-item"><a href="#foundation-fixed" class="nav-link" onclick="showSection('foundation-fixed', event)">RecVue Foundation</a></li>
                     <li class="nav-item"><a href="#revenue-fixed" class="nav-link" onclick="showSection('revenue-fixed', event)">Revenue Management</a></li>
@@ -249,12 +250,12 @@
 
     <main class="content">
 
-        <!-- OVERVIEW -->
+        <!-- Overview -->
         <section id="introduction" class="section">
             <h2>Overview</h2>
             <p class="intro-text">This release document provides a consolidated overview of new features, enhancements, and resolved issues across various RecVue product components. Each feature is accompanied by a concise description highlighting its business impact and functional value. For detailed guidance on specific configurations or implementation steps, please contact the RecVue Support Team.</p>
-            <p class="intro-text"><strong>Note:</strong> This document also lists features and solutions provided to certain customers in interim release 26.1.1.</p>
-            <p class="intro-text">The most significant updates in this release focus on key modules including RecVue Foundation, Contract Management, Billing Management, Partner Compensation, and Revenue Management.</p>
+            <p class="intro-text"><strong>Note:</strong> This document lists the features and solutions provided to certain customers in interim release 26.1.1.</p>
+            <p class="intro-text">The most significant updates in this release focus on key modules, including RecVue Foundation, Contract Management, Billing Management, Partner Compensation, and Revenue Management.</p>
             <h3>Key Areas Covered</h3>
             <ul style="margin-left:1.5rem; color:#475569; margin-bottom:1rem;">
                 <li>Contract Management</li>
@@ -276,82 +277,55 @@
         <!-- WHAT'S NEW – BILLING & INVOICE MANAGEMENT -->
         <section id="billing-new" class="section">
             <h2>What's New</h2>
-            <h3>Billing &amp; Invoice Management</h3>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-35019</span>-->
-                <h4>Apex Bill Run Now Supports Multiple Selection for Key Fields</h4>
-                <p>You can now select multiple values across key fields when running an Apex Bill Run (formerly Turbo Bill Run), giving you greater flexibility and control over which orders get processed.</p>
-                <p>Previously, the Bill Run could only target a single order at a time. You can now use <strong>multi-select filtering</strong> to target specific groups of orders. This capability is controlled via profile configuration — activate the <em>"Enable Bill Run Multi Selection"</em> profile option to enable it.</p>
-                <p><strong>Multi-Select Fields:</strong></p>
-                <ul>
-                    <li>Order Type</li>
-                    <li>Business Unit</li>
-                    <li>Order Category</li>
-                    <li>Line Types</li>
-                    <li>Product Name</li>
-                    <li>Order #</li>
-                    <li>Territory</li>
-                </ul>
-                <p>For customers managing multiple Business Units or Order Types where multiple Bill Runs were previously required, this enhancement significantly reduces operational effort with flexible controls, smart AND-logic filtering, and targeted invoicing.</p>
-            </div>
+            <h3>Billing and Invoice Management</h3>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-37983 &amp; CS-35407 &amp; CS-35327</span>-->
-                <h4>Enhanced Order Details Report</h4>
-                <p><strong>Enhancement 1 — Billing Status Column:</strong> A new Billing Status column has been added to the Order Details Report (Reports &gt; Order &gt; Order Details), positioned between the Billing Amount and Order Status columns. You can also use Billing Status as a filter when generating the report.</p>
-                <p><strong>Enhancement 2 — Bill-To Contact Number Columns:</strong> Two new columns — Order Bill To Contact Number (header-level) and Bill To Contact Number (line-level) — have been added to provide immediate visibility into contact information. These additions allow users to access essential contact details directly within the report output, eliminating manual cross-referencing.</p>
-                <p><strong>Enhancement 3 — "All Expired" Line Status Filter:</strong> A new "All Expired" option has been added to the Line Status filter. By selecting Order Status = Active combined with Line Status = All Expired, users can generate a report of all active orders with no lines actively billing — capturing orders where every line is in Expired, Terminated, or Canceled status.</p>
+                <h4>Enhanced - Order Details Report</h4>
+                <p><strong>Enhancement-1: Billing Status Column</strong></p>
+                <p>We have added a new Billing Status column to the Order Details Report (Reports &gt; Order &gt; Order Details). This column is positioned between the Billing Amount and Order Status columns. Additionally, you can now use Billing Status as a filter when generating the report.</p>
+                <p><strong>Enhancement-2: Added Two New Columns</strong></p>
+                <p>Two new columns, Order Bill To Contact Number (header-level) and Bill To Contact Number (line-level), have been added to provide immediate visibility into contact information that was previously unavailable. While the existing Bill To Customer column remains unchanged, these additions allow users to access essential contact details directly within the report output, eliminating the need for manual cross-referencing and streamlining the billing review process.</p>
+                <p><strong>Enhancement-3: All Expired Line Status Filter</strong></p>
+                <p>We have added a new "All Expired" option to the Line Status filter. By selecting Order Status = Active combined with Line Status = All Expired, users can now generate a report of all active orders that no longer have any lines actively billing. This captures orders in which every line item is in an Expired, Terminated, or Canceled status. To maintain consistency, these individual statuses will still be labeled exactly as they appear in the UI within the final report output.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-29096</span>-->
-                <h4>Rent Credit Policy — Early Lease Termination (Customer Specific)</h4>
-                <p>RecVue now supports a Cancellation Credit Policy that automates rent credit calculations when a rented asset is returned mid-billing cycle. Credits are tiered based on how early in the billing cycle the demobilization occurs — applying 30-day, 15-day, or 0-day credit rules — ensuring customers are billed fairly for actual usage.</p>
-                <p>All credit transactions are linked back to the original invoice lines, supporting revenue recognition compliance and maintaining a clean audit trail. The policy is configured at the division level to support specific business needs.</p>
+                <h4>Rent Credit Policy — Early Lease Termination Feature (Customer specific)</h4>
+                <p>RecVue now supports a termination credit policy that automates rent credit calculations when a rented asset is returned mid-billing cycle. Credits are tiered based on how early in the cycle the demobilization occurs — applying 30-day, 15-day, or 0-day credit rules — ensuring customers are billed fairly for actual usage. All credit transactions are linked back to the original invoice lines, supporting compliance with revenue recognition and a clean audit trail.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-34201</span>-->
                 <h4>New Account and Site Date Columns Added to Customer Details Report</h4>
-                <p>To provide a more comprehensive view of customer lifecycles, four new date columns have been added to the Customer Details Report: <strong>Account Start Date</strong>, <strong>Account End Date</strong>, <strong>Site Start Date</strong>, and <strong>Site End Date</strong>. These have been integrated into the existing layout in a logical sequence for easy reading and contextual relevance.</p>
+                <p>To provide a more comprehensive view of customer lifecycles, we have added four new date columns to the Customer Details Report: Account Start Date, Account End Date, Site Start Date, and Site End Date.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-37427</span>-->
                 <h4>Bill-To Contact Number Column Added to Billing Details &amp; Tax Report</h4>
-                <p>A new <strong>Bill-To Contact Number</strong> column is now available in the Billing Details &amp; Tax Report, located next to the Customer Account Name. This field automatically pulls the contact number from the Bill-To customer record associated with the contract. If no contact number is on file, the field remains blank.</p>
-                <p>This update streamlines reporting by allowing users to identify Bill-To contact information directly within the report, eliminating the need to cross-reference other records.</p>
-            </div>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-12019</span>-->
-                <h4>New Asset Workbench for Centralized Asset Management</h4>
-                <p>A new Asset Workbench has been introduced, providing a single centralized location for tracking and managing assets throughout their lifecycle. It surfaces critical asset-level data — including current location and full history — and offers the following key capabilities:</p>
-                <ul>
-                    <li><strong>Streamlined Search:</strong> Quickly find assets using Simple Search (Asset #, Serial #, or Order #) or Advanced Search to filter by Site Number and Product.</li>
-                    <li><strong>Billing Details Tab:</strong> Full visibility into billing schedules and lines (both scheduled and billed), including invoice numbers, sorted by billing date (newest first).</li>
-                    <li><strong>Fulfillment Tab:</strong> A complete list of all fulfillment activities, organized in descending order by start date.</li>
-                    <li><strong>Integrated Tracking:</strong> View an asset's location history alongside its associated contract and order details for a complete 360-degree view.</li>
-                </ul>
+                <p><strong>Enhancement</strong>: A new Bill-To Contact Number column is now available in the Billing Details &amp; Tax Report, located next to the Customer Account Name. This field automatically pulls the contact number from the Bill-To customer record associated with the contract. If no contact number is on file, the field will remain blank.</p>
+                <p><strong>Business Value</strong>: This update streamlines reporting by allowing users to identify Bill-To contact information directly within the report, eliminating the need to cross-reference other records.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-35777</span>-->
-                <h4>Access to Billing Tier Details from Contract and Workbench UIs</h4>
-                <p>You can now access Billing Tier details directly from the Order Line and Usage Workbench without navigating away from your current task.</p>
+                <h4>Provide Access to Billing Tier Details from Contract and Workbench UIs</h4>
+                <p><strong>Enhancement</strong>: We have streamlined how you view and manage billing tiers. You can now access Billing Tier details directly from the Order Line and Usage Workbench without needing to perform separate searches or navigate away from your current task.</p>
+                <p><strong>Key Capabilities</strong>:</p>
                 <ul>
-                    <li><strong>Direct Hyperlinks:</strong> The active Billing Tier name now appears as a clickable link on the Order Products page and the Usage Workbench.</li>
-                    <li><strong>Tier Overview Pop-up:</strong> Clicking the hyperlink opens a pop-up showing all tiers associated with that product, sorted with the most recent effective dates at the top.</li>
-                    <li><strong>Real-Time Active Tier Display:</strong> The system automatically identifies and displays the currently active tier based on today's date.</li>
-                    <li><strong>Seamless Navigation:</strong> From the pop-up, click directly into the active tier to view or update specific details (Buckets page).</li>
+                    <li><strong>Direct Hyperlinks</strong>: The active Billing Tier name now appears as a clickable link on the Order Products page and the Usage Workbench.</li>
+                    <li><strong>Tier Overview Pop-up</strong>: Clicking the hyperlink opens a pop-up window displaying all tiers associated with that product, automatically sorted with the most recent effective dates at the top.</li>
+                    <li><strong>Real-Time Active Tier Display</strong>: The system automatically identifies and displays the currently active tier based on today's date compared to the tier's effective start and end dates.</li>
+                    <li><strong>Seamless Navigation</strong>: From the pop-up, you can click directly into the active tier to view or update tier details.</li>
                 </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-36795</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
-                <h4>Enhanced AR (Billing) Adjustments Interface</h4>
-                <p>The following columns are now available in the Billing Adjustments interface via the Managed Workspace in the advanced UI framework:</p>
+                <h4>Improved the Billing Adjustments UI</h4>
+                <p>We've added the ability to include the following columns in the Billing Adjustments interface using the Managed Workspace in the advanced UI framework.</p>
                 <ul>
                     <li>Created By</li>
                     <li>Line #</li>
@@ -362,19 +336,28 @@
                     <li>Billing Period To</li>
                     <li>Product Description</li>
                 </ul>
-                <p>The following attributes have also been added to the advanced search screen: Line #, Product Description, Bill From, Bill To, Created By, Created Date.</p>
+                <p>The following attributes are added to the advanced search screen:</p>
+                <ul>
+                    <li>Line #</li>
+                    <li>Product Description</li>
+                    <li>Bill From</li>
+                    <li>Bill To</li>
+                    <li>Created By</li>
+                    <li>Created Date</li>
+                </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-30787</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
-                <h4>Improved Primary User Interfaces with Audit Fields</h4>
-                <p>The <strong>Last Updated Date</strong> and <strong>Last Updated By</strong> attributes are now visible directly within the following screens, eliminating the need to navigate to the Audit Trail:</p>
+                <h4>Improved primary user interfaces with more fields</h4>
+                <p>To improve data accountability and streamline your workflow, we have expanded the visibility of key audit fields across the platform. You can now view the <strong>Last Updated Date</strong> and <strong>Last Updated By</strong> attributes directly within the following screens:</p>
                 <ul>
                     <li>Order Search</li>
                     <li>Order Products</li>
                     <li>Order Deliveries (and Usage Workbench)</li>
                     <li>Apex Bill Run</li>
                 </ul>
+                <p><strong>Why this matters</strong>: Previously, these details were primarily found within the Audit Trail. By bringing this information into the primary user interfaces, you can instantly identify who modified a record and when it happened without having to navigate away from your current task.</p>
             </div>
         </section>
 
@@ -386,7 +369,9 @@
             <div class="feature-card">
                 <!--<span class="badge">CS-37032</span>-->
                 <h4>Improved: Filtered Vendor Site Code Selection on Amendments</h4>
-                <p>The Vendor Site Code field on the Amendments screen now automatically filters search results based on the vendor selected for that specific line. Previously, searching returned an unfiltered list of all site codes in the system.</p>
+                <p>We've updated the Vendor Site Code field on the Amendments screen to make site selection faster and more accurate.</p>
+                <p><strong>What's New</strong>: Previously, searching for a Vendor Site Code returned an unfiltered list of all site codes in the system. This made it difficult to find the correct code and increased the risk of selecting the wrong one.</p>
+                <p><strong>Improvement</strong>: The search results are now automatically filtered based on the vendor selected for that specific line. You will only see site codes belonging to the relevant vendor, which:</p>
                 <ul>
                     <li>Reduces errors by eliminating irrelevant options.</li>
                     <li>Saves time during the amendment process.</li>
@@ -395,47 +380,49 @@
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-35854</span>-->
-                <h4>Edit Vendor and Vendor Site on Active Lines via Amendment</h4>
-                <p>Users can now update Vendor and Vendor Site details on active contract lines through the Amendment UI, provided the line's payment status is "Scheduled" (unpaid).</p>
-                <p>Previously, once a contract line was active, Vendor fields became locked — requiring manual workarounds or technical support to correct data entry errors. This enhancement:</p>
+               <!-- <span class="badge">CS-35854</span> -->
+                <h4>Enhancement: Edit Vendor and Vendor Site on Active Lines via Amendment</h4>
+                <p>We have added more flexibility to the amendment process by allowing users to update vendor and vendor Site details on active contract lines.</p>
+                <p><strong>Challenge</strong>: Previously, once a contract line was active, the Vendor fields became locked. If the wrong vendor was assigned during the initial setup, there was no way to fix it via the UI, often requiring manual workarounds or technical support to correct the data.</p>
+                <p><strong>Solution</strong>: You can now edit these fields directly through the Amendment UI, provided the line's payment status is "Scheduled" (unpaid). This enhancement:</p>
                 <ul>
-                    <li><strong>Empowers Users:</strong> Correct vendor assignments without back-end intervention.</li>
-                    <li><strong>Reduces Manual Effort:</strong> Eliminates complex workarounds to fix data entry errors.</li>
-                    <li><strong>Streamlines Workflows:</strong> Ensures payment records are routed to the correct vendor before processing.</li>
+                    <li>Empowers Users: Correct vendor assignments yourself without needing back-end intervention.</li>
+                    <li>Reduces Manual Effort: Eliminates the need for complex workarounds to fix data entry errors.</li>
+                    <li>Streamlines Workflows: Ensures your payment records are routed to the correct vendor before processing.</li>
                 </ul>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-33901 / CS-34050</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
-                <h4>Standardized Unit Cost Display in Partner Module</h4>
-                <p>The Partner Module has been updated to ensure unit costs are calculated and displayed with consistent precision across the platform. The new <strong>"Unit Cost Precision"</strong> profile option allows administrators to define a uniform number of decimal places for unit cost values across the entire Partner Module, including:</p>
+                <!--<span class="badge">CS-33901/34050</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Standardized displaying Unit Cost in Partner module</h4>
+                <p>We have updated the <strong>Partner Module</strong> to ensure that unit costs are calculated and displayed with consistent precision across the platform. This update eliminates minor discrepancies and ensures that the same values are reflected across all related interfaces.</p>
+                <p><strong>What's New</strong>: The <strong>"Unit Cost Precision"</strong> profile option is now available. This allows administrators to define a uniform number of decimal places for unit cost values across the entire <strong>Partner Module</strong>.</p>
                 <ul>
-                    <li>Cost column in Product Summary screen</li>
-                    <li>Cost field in Product Payable Header screen</li>
-                    <li>Unit Cost column in Payment Schedule Summary Screen</li>
-                    <li>Unit Cost field in Payment Schedule Detail Screen</li>
-                    <li>Cost column in Payment Lines Summary Screen</li>
-                    <li>Cost field in the Payment Lines Details screen</li>
-                    <li>Price column in AP Tier Pricing Screen</li>
-                    <li>Cost column in Deliveries Summary screen</li>
-                    <li>Cost field in the Delivery Details Screen</li>
-                    <li>Unit Cost column in the Review Pay Amount screen</li>
-                    <li>Unit Price in the Paid screen</li>
-                    <li>Unit Cost and cost unit price fields in the Manual Adjustment against Invoice screen</li>
-                    <li>CM Unit Price field in the Payment Adjustment - On Account screen</li>
+                    <li>Cost column in Product Summary screen.</li>
+                    <li>Cost field in the Product Payable Header screen.</li>
+                    <li>Unit Cost column in the Payment Schedule Summary Screen.</li>
+                    <li>Unit Cost field in the Payment Schedule Detail Screen.</li>
+                    <li>Cost column in the Payment Lines Summary Screen.</li>
+                    <li>Cost field in the Payment Lines Details screen.</li>
+                    <li>Price column in the AP Tier Pricing Screen.</li>
+                    <li>Cost column in the Deliveries Summary screen.</li>
+                    <li>Cost field in the Delivery Details Screen.</li>
+                    <li>Unit Cost column in the Review Pay Amount screen.</li>
+                    <li>Unit Price in the Paid screen.</li>
+                    <li>Unit Cost and cost unit price fields in the Manual Adjustment against Invoice screen.</li>
+                    <li>CM Unit Price field in the Payment Adjustment - On Account screen.</li>
                 </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-38113</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
                 <h4>Improved Pay Contract Amendments</h4>
-                <p>The following improvements have been made to pay contract amendments:</p>
+                <p>The following improvements have been made in the pay contract amendments:</p>
                 <ul>
-                    <li><strong>Vendor Alignment:</strong> The validation process when transitioning contracts from Evergreen to Non-Evergreen status has been refined to ensure data consistency. The system now enforces: "Update the Vendor end date to Non-Evergreen before setting this line to Non-Evergreen."</li>
-                    <li><strong>Bulk Update:</strong> If you update both the Vendor and Line end dates simultaneously, the system processes all standard validations. Upon success, both records will correctly reflect the new Non-Evergreen status.</li>
+                    <li><strong>Vendor Alignment</strong>: We've refined the validation process when transitioning contracts from Evergreen to Non-Evergreen status to ensure data consistency: "Update the Vendor end date to non-Evergreen before setting this line to non-Evergreen."</li>
+                    <li><strong>Bulk Update</strong>: If you update both the Vendor and Line end dates simultaneously, the system will process all standard validations. Upon success, both records will correctly reflect the new non-evergreen status.</li>
                 </ul>
-                <p><em>Note: Line End Date and Vendor End Date must be updated simultaneously.</em></p>
+                <p><strong>Note</strong>: Line End Date and Vendor End Date shall be updated simultaneously.</p>
             </div>
         </section>
 
@@ -447,13 +434,14 @@
             <div class="feature-card">
                 <!--<span class="badge">CS-32426</span>-->
                 <h4>Performance Boost for Revenue GL Processes</h4>
-                <p>The speed and efficiency of the Revenue GL Transfer process — including GL Review and Journal Entry (JE) Creation — has been significantly improved. These optimizations reduce system load and process data much faster than before.</p>
+                <p>We have significantly improved the speed and efficiency of the Revenue GL Transfer process, including GL Review and Journal Entry (JE) Creation. These optimizations reduce system load and process data much faster than before.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-33886</span>-->
                 <h4>Support for Special Characters in Revenue Fields</h4>
-                <p>Several key revenue configuration screens now support special characters in text fields. You can now use the following characters within Performance Obligation, Accounting Event, and COA Segment Rule configurations:</p>
+                <p>We've updated several key revenue configuration screens to support special characters in text fields.</p>
+                <p><strong>Improvement</strong>: Previously, certain fields would reject special characters, which could make it difficult to enter accurate data or match external system naming conventions. You can now use the following characters within Performance Obligation, Accounting Event, and COA Segment Rule configurations:</p>
                 <ul>
                     <li>Hyphen (-)</li>
                     <li>Hashtag (#)</li>
@@ -463,36 +451,34 @@
                     <li>Asterisk (*)</li>
                     <li>Apostrophe (')</li>
                 </ul>
-                <p><em>Note: Support for Cost configurations is planned for a future update.</em></p>
+                <p><strong>What's Next</strong>: While these characters are now fully supported for revenue configurations, support for Cost configurations is planned for a future update. This enhancement ensures your data entry is more flexible and reduces the need for manual workarounds when naming or describing your accounting rules.</p>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-26585</span>-->
-                <h4>Bulk Change POB for Revenue Lines</h4>
-                <p>A new dedicated Change POB interface now allows you to update Performance Obligations for multiple revenue lines simultaneously. Previously, these changes had to be made manually — one line at a time — which was slow and error-prone for large contracts.</p>
-                <ul>
-                    <li><strong>Bulk Processing:</strong> Apply the same POB update or unique changes to multiple lines at once using bulk and parallel processing.</li>
-                    <li><strong>Reduced Manual Effort:</strong> Significantly less time spent on high-volume revenue data management.</li>
-                    <li><strong>Parallel Execution:</strong> Process multiple POB updates concurrently for faster throughput.</li>
-                </ul>
+               <!-- <span class="badge">CS-26585</span>-->
+                <h4>Enhancement: Bulk Change POB for Revenue Lines</h4>
+                <p>We've introduced a new, dedicated Change POB interface that allows you to update Performance Obligations for multiple revenue lines simultaneously. Previously, these changes had to be made manually, one line at a time, which was slow for large contracts.</p>
+                <p>You can now use bulk and parallel processing to apply either the same POB update or unique changes to multiple lines at once. This enhancement significantly reduces manual effort and speeds up your workflow when managing high-volume revenue data.</p>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-31228</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
-                <h4>Multi Legal Entity Selection for GL Transfers</h4>
-                <p>The GL Transfer interface now supports simultaneous processing of GL transfers for multiple legal entities, removing the need to create separate GL transfer batches for each entity and streamlining the month-end close process.</p>
+               <!-- <span class="badge">CS-31228</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+                <h4>Provided Multi Legal Entities Selection Option for GL Transfers</h4>
+                <p>We have enhanced the GL Transfer interface to support the simultaneous processing of GL transfer for multiple legal entities. This update streamlines the month-end process by removing the need to create separate GL transfer batches for each legal entity.</p>
+                <p><strong>Key Improvements</strong>:</p>
                 <ul>
-                    <li><strong>Multi-Select Enabled:</strong> The legal entity field now supports multi-selection.</li>
-                    <li><strong>Dynamic Visibility:</strong> All chosen legal entities appear clearly on screen before processing for easy verification.</li>
-                    <li><strong>Flexible Selection:</strong> Select all relevant legal entities at once or hand-pick specific ones based on current business requirements.</li>
+                    <li><strong>Multi-Select Enabled</strong>: The legal entity field now supports multi-selection.</li>
+                    <li><strong>Dynamic Visibility</strong>: Once selected, all chosen legal entities clearly appear on the screen for easy verification before processing.</li>
+                    <li><strong>Flexible Selection</strong>: Users can now select all relevant legal entities at once or hand-pick specific ones based on current business requirements.</li>
                 </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-38348</span>-->
-                <h4>CACL Programs Hidden When Contract Liability Feature Is Disabled</h4>
-                <p>To provide a cleaner and more intuitive experience, the CACL Scheduling and CACL Accounting programs are now hidden from the Revenue Interface when the "Enable Contract Liability Feature" profile option is disabled.</p>
-                <p>Previously, these programs remained visible and often showed "Failure" statuses even when the feature wasn't in use, causing unnecessary confusion. With this update, the interface — including independent processes like Revenue Release, Auto Events, and Accounting — dynamically hides these options based on your profile settings, ensuring you only see the tools relevant to your current configuration.</p>
+                <h4>Revenue – UI/UX Improvement: CACL Programs Hidden When Contract Liability Feature Is Disabled</h4>
+                <p>To provide a cleaner and more intuitive experience, the CACL Scheduling and CACL Accounting programs are now hidden from the Revenue Interface when the "Enable Contract Liability Feature" is disabled.</p>
+                <p>Previously, these programs remained visible and often displayed "Failure" statuses even when the feature wasn't in use, causing unnecessary confusion.</p>
+                <p>With this update, the interface—including independent processes like Revenue Release, Auto Events, and Accounting—will now dynamically hide these options based on your profile settings, ensuring you only see the tools relevant to your current configuration.</p>
             </div>
         </section>
 
@@ -503,54 +489,59 @@
             <p class="intro-text">To ensure seamless operational flow, the <strong>RecVue Cost Management</strong> module is being developed to align directly with existing modules, creating an integrated ecosystem for financial data. The following are the enhancements of Cost Management.</p>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-36152</span>-->
+               <!-- <span class="badge">CS-36152</span>-->
                 <h4>Enhanced Cost Accruals for Estimated Return Services</h4>
-                <p>RecVue now internally calculates cost accruals for services related to estimated returns, removing the need for manual or external calculations. The system handles these accruals automatically based on predefined rules.</p>
-                <p><strong>Scope and Eligibility:</strong></p>
+                <p>We've enhanced RecVue's ability to internally calculate cost accruals for services related to estimated returns. This update removes the need for manual or external calculations by allowing the system to handle these accruals automatically based on your predefined rules.</p>
+                <p><strong>Scope and Eligibility</strong>:</p>
                 <ul>
-                    <li><strong>Included:</strong> Modular products on Lease contracts.</li>
-                    <li><strong>Excluded:</strong> Containers and sale-type contracts.</li>
+                    <li><strong>Included</strong>: Modular products on Lease contracts.</li>
+                    <li><strong>Excluded</strong>: Containers and sale-type contracts.</li>
                 </ul>
-                <p><strong>How It Works:</strong> The system calculates two types of estimated final bill expenses and amortizes them across the entire lease term:</p>
+                <p><strong>How it Works</strong>: The system now calculates two specific types of estimated final bill expenses and amortizes (spreads) them across the entire lease term:</p>
                 <ul>
-                    <li><strong>Return Haulage Expense:</strong> Calculated at 100% of the delivery haulage expense for the same asset.</li>
-                    <li><strong>Other Dismantle Expenses:</strong> Calculated at 80% of the list price found in Order Management.</li>
+                    <li><strong>Return Haulage Expense</strong>: Calculated at 100% of the delivery haulage expense for the same asset.</li>
+                    <li><strong>Other Dismantle Expenses</strong>: Calculated at 80% of the list price found in Order Management.</li>
                 </ul>
-                <p><strong>Key Accounting Details:</strong> GL Allocation is automatically directed to one of two GL expense accounts based on your specific "bill-how" rules. Certain final bill item codes — such as cleaning fees — are excluded from amortization. This enhancement ensures lease cost recognition is more accurate, automated, and aligned with the equipment's actual lifecycle.</p>
+                <p><strong>Key Accounting Details</strong>:</p>
+                <ul>
+                    <li>GL Allocation: Amortization is automatically directed to one of two GL expense accounts based on your specific "bill-how" rules.</li>
+                    <li>Exclusions: To ensure accuracy, certain final bill item codes—such as cleaning fees—are excluded from these amortization rules.</li>
+                </ul>
+                <p>This enhancement ensures your lease cost recognition is more accurate, automated, and aligned with the equipment's actual lifecycle.</p>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-36476</span>-->
+               <!-- <span class="badge">CS-36476</span>-->
                 <h4>Introduction of the Accrual Workbench for Consolidated Visibility</h4>
-                <p>The new Accrual Workbench is a centralized dashboard designed to streamline how you manage and view cost and revenue accruals. Previously, viewing accrual data and related accounting entries required navigating multiple screens or running separate reports.</p>
+                <p>We are excited to introduce the Accrual Workbench, a centralized dashboard designed to streamline how you manage and view cost and revenue accruals.</p>
+                <p><strong>Improvement</strong>: Previously, viewing accrual data and related accounting entries required navigating multiple screens or running separate reports. The new Accrual Workbench brings all this information together into a single, comprehensive view.</p>
+                <p><strong>Key Features</strong>:</p>
                 <ul>
-                    <li><strong>Centralized Access:</strong> Easily accessible via Menu &gt; Accrual Workbench.</li>
-                    <li><strong>Unified Data:</strong> View both Accrual Schedules and their associated accounting entries side-by-side on one screen.</li>
-                    <li><strong>Detailed Reporting:</strong> The interface displays high-level workbench data as well as granular schedule details, following the standard Cost &amp; Accrual column specifications.</li>
+                    <li><strong>Centralized Access</strong>: Easily accessible via Menu &gt; Accrual Workbench.</li>
+                    <li><strong>Unified Data</strong>: View both Accrual Schedules and their associated accounting entries side-by-side on one screen.</li>
+                    <li><strong>Detailed Reporting</strong>: The interface displays high-level workbench data as well as granular schedule details, following the standard Cost &amp; Accrual column specifications.</li>
                 </ul>
+                <p>This enhancement provides better visibility into your financial data, making it faster and easier to verify accrual accuracy and status.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-36475</span>-->
                 <h4>Introduction of the Cost Workbench for Consolidated Visibility</h4>
-                <p>The new Cost Workbench is a centralized interface that gives you a clear, comprehensive view of your cost data in one place. Previously, tracking cost schedules and their related accounting entries required navigating through various parts of the system.</p>
+                <p>We are excited to introduce the Cost Workbench, a centralized interface that gives you a clear, comprehensive view of your cost data in one place.</p>
+                <p><strong>Improvement</strong>: Previously, tracking cost schedules and their related accounting entries required navigation through various parts of the system. The new Cost Workbench simplifies this by surfacing all relevant information on a single screen.</p>
+                <p><strong>Key Features</strong>:</p>
                 <ul>
-                    <li><strong>Centralized Access:</strong> Found easily under Revenue &gt; Cost Workbench.</li>
-                    <li><strong>Unified View:</strong> See Cost Schedules and their associated Accounting entries side-by-side without switching screens.</li>
-                    <li><strong>Deep Visibility:</strong> The workbench includes both high-level summary columns and granular detail columns, allowing you to drill down into the specifics of each cost schedule.</li>
+                    <li><strong>Centralized Access</strong>: Found easily under Revenue &gt; Cost Workbench.</li>
+                    <li><strong>Unified View</strong>: See Cost Schedules and their associated Accounting entries side-by-side without switching screens.</li>
+                    <li><strong>Deep Visibility</strong>: The workbench includes both high-level summary columns and granular detail columns, allowing you to drill down into the specifics of each cost schedule.</li>
                 </ul>
-                <p>This enhancement saves time and improves accuracy by providing a single source of truth for monitoring your cost accounting data.</p>
+                <p>This enhancement saves time and improves accuracy by providing a "single source of truth" for monitoring your cost accounting data.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-38834</span>-->
                 <h4>Accounting Visibility in the Cost &amp; Accrual Workbench</h4>
-                <p>You can now view accounting entry details directly within the Cost &amp; Accrual Workbench. A dedicated set of accounting columns has been added to the interface, allowing you to instantly review the financial side of cost and accrual records without navigating between different screens.</p>
-                <ul>
-                    <li><strong>In-Context Accounting:</strong> Review GL-level details alongside accrual data on the same screen.</li>
-                    <li><strong>Streamlined Auditing:</strong> Eliminates the need to cross-reference separate accounting screens.</li>
-                    <li><strong>Single Location Management:</strong> Manage, audit, and verify cost and accrual records from one place.</li>
-                </ul>
+                <p>To provide better visibility and streamline your workflow, you can now view accounting entry details directly within the Cost &amp; Accrual Workbench. We have added a dedicated set of accounting columns to the interface, allowing you to instantly review the financial side of cost and accrual records. This enhancement eliminates the need to navigate between different screens, making it easier to audit and manage your data from a single location.</p>
             </div>
         </section>
 
@@ -560,21 +551,23 @@
             <h3>RecVue Foundation</h3>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-34178</span>-->
+               <!-- <span class="badge">CS-34178</span>-->
                 <h4>Automated User Management with SCIM 2.0</h4>
-                <p>RecVue now supports SCIM 2.0 (System for Cross-domain Identity Management), allowing your organization to connect RecVue directly to your Identity Provider — such as Okta, Azure AD, OneLogin, or Google Workspace — to automate user lifecycle management.</p>
+                <p>RecVue now supports SCIM 2.0 (System for Cross-domain Identity Management). This allows your organization to connect RecVue directly to your Identity Provider (such as Okta, Azure AD, OneLogin, or Google Workspace) to automate user lifecycle management.</p>
+                <p><strong>Key Capabilities:</strong></p>
                 <ul>
-                    <li><strong>Automated User Lifecycle Management:</strong> Users are automatically created, updated, or deactivated in RecVue the moment changes are made in your identity provider. This eliminates manual user setup and ensures access is removed instantly when a user leaves.</li>
-                    <li><strong>Secure OAuth 2.0 Authentication:</strong> All synchronization endpoints are protected by OAuth 2.0 tokens with strict access controls and a full audit log of every provisioning action.</li>
+                    <li><strong>Automated User Lifecycle Management</strong>: Users are automatically created, updated, or deactivated in RecVue the moment changes are made in your identity provider. This eliminates the need for manual user setup and ensures access is removed instantly when a user leaves.</li>
+                    <li><strong>Secure OAuth 2.0 Authentication</strong>: Security is built in. All synchronization endpoints are protected by OAuth 2.0 tokens, featuring strict access controls and a full audit log of every provisioning action.</li>
                 </ul>
-                <p>This update streamlines IT operations, enhances security, and ensures that your user list is always accurate and up to date.</p>
+                <p>This update streamlines your IT operations, enhances security, and ensures that your user list is always accurate and up to date.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-34160</span>-->
                 <h4>Improved Custom Objects Functionality</h4>
-                <p>The Custom Objects framework has been significantly enhanced, giving you greater control, security, and flexibility to manage your unique data within the system.</p>
-                <p><strong>Navigation Relocated:</strong></p>
+                <p>The Custom Objects functionality has been enhanced to give you greater control, security, and visibility, making it easier and safer to manage your unique data within the system.</p>
+                <p><strong>Key Improvements</strong>:</p>
+                <p>Changed the location:</p>
                 <table style="width:100%; margin-top:0.5rem; margin-bottom:0.75rem;">
                     <tr>
                         <th style="padding:8px; background:#f1f5f9;">New Navigation</th>
@@ -586,9 +579,21 @@
                     </tr>
                 </table>
                 <ul>
-                    <li><strong>Streamlined Import:</strong> The import functionality has been moved directly into the Custom Objects UI. You can now download templates and trigger imports without navigating to a separate screen.</li>
-                    <li><strong>Granular Permissions:</strong> A permission-based access control model has been introduced. When a new custom object is created, three default permissions are automatically generated: <em>View</em>, <em>Create</em>, and <em>Delete</em>.</li>
-                    <li><strong>Expanded Relationships:</strong> Custom objects can now be added to related entities in multiple places across the application. Previously, this was limited to the order header level only.</li>
+                    <li><strong>Streamlined Custom Objects Import</strong>: We've moved the import functionality directly into the <strong>Custom Objects UI</strong> to simplify your workflow.
+                       <ul>
+                          <li><strong>What's changed</strong>: You no longer need to navigate to a separate Imports screen to manage your data.</li>
+                          <li><strong>How it works</strong>: You can now download your template and trigger an import directly within the Custom Objects interface. Simply use the Download button to grab the template, and the Import button to upload your data quickly and easily.</li>
+                       </ul>
+                    </li>
+                    
+                    <li><strong>Data Management Permissions</strong>: A granular, permission-based access control model has been introduced for custom objects. When a new custom object is created, three default permissions are automatically generated: 
+                        <ul>
+                            <li>View - custom object</li>
+                            <li>Create - custom object</li>
+                            <li>Delete - custom object</li>
+                        </ul>
+                     </li>
+                    <li><strong>Add Custom Object to different related entities</strong>: Users can now add a custom object to a related entity in various places in the application. Earlier, users could create custom objects at the order header level.</li>
                 </ul>
                 <p>These updates transform Custom Objects into a more robust and flexible tool for managing specialized business data.</p>
             </div>
@@ -597,57 +602,63 @@
         <!-- WHAT'S NEW – USAGE HUB -->
         <section id="usage-hub-new" class="section">
             <h2>What's New</h2>
-            <h3>RecVue Hub Platform — Usage Hub</h3>
+            <h3>RecVue Hub Platform – Usage Hub</h3>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-37173</span>-->
-                <h4>User Permissions, KPIs, and UI Updates</h4>
-                <p>The interface name has been updated from "Dashboard Usage Hub" to <strong>"Usage Hub"</strong>.</p>
-                <p><strong>New Permissions:</strong></p>
+               <!-- <span class="badge">CS-37173</span>-->
+                <h4>User Permissions and KPIs</h4>
                 <ul>
-                    <li><strong>ViewUsageHub:</strong> Lets users access the Usage Hub menu and view details. They can navigate freely but cannot edit existing batches or records.</li>
-                    <li><strong>ManageUsageHub:</strong> Enables users to add batches, reprocess data, and import files. They can also edit error records and save updates.</li>
+                    <li>The interface name changed from "Dashboard Usage Hub" to "Usage Hub".</li>
+                    <li>Add permissions to the Usage Hub:
+                        <ul style="margin-top:0.5rem;">
+                            <li>ViewUsageHub: Lets users access the Usage Hub menu and view details. They can navigate freely but cannot edit existing batches or records.</li>
+                            <li>ManageUsageHub: Enables users to add batches, reprocess data, and import files. They can also edit error records and save updates.</li>
+                        </ul>
+                    </li>
+                    <li>Added KPIs to Usage Hub Summary Screen:
+                        <ul style="margin-top:0.5rem;">
+                            <li>Total: Number of usage batches that have been processed.</li>
+                            <li>Success: Number of usage batches where all records processed successfully.</li>
+                            <li>Error: Number of usage batches where all records have errors.</li>
+                            <li>Warning: Number of usage batches with at least one record in error status.</li>
+                        </ul>
+                    </li>
+                    <li>Added Batch Name Field in Upload File UI: Provided an optional Batch Name field. You can now optionally enter a batch name. If provided, it uses your entered name along with the system date and time stamp. If skipped, the system generates a default batch name.</li>
+                    <li>The SFTP Source field name changed to SFTP File Extension.</li>
                 </ul>
-                <p><strong>KPIs Added to Usage Hub Summary Screen:</strong></p>
-                <ul>
-                    <li><strong>Total:</strong> Number of usage batches that have been processed.</li>
-                    <li><strong>Success:</strong> Number of usage batches where all records processed successfully.</li>
-                    <li><strong>Error:</strong> Number of usage batches where all records have errors.</li>
-                    <li><strong>Warning:</strong> Number of usage batches with at least one record in error status.</li>
-                </ul>
-                <p><strong>Batch Name Field in Upload File UI:</strong> An optional Batch Name field has been added. If provided, it uses your entered name along with the system date and timestamp. If skipped, the system generates a default batch name.</p>
-                <p>The <strong>SFTP Source</strong> field name has been renamed to <strong>SFTP File Extension</strong>.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-33912</span>-->
-                <h4>Usage Hub — Manage Workspace Column Updates</h4>
-                <p>The Manage Workspace now comes with the following columns pre-configured by default:</p>
+                <h4>Usage Hub – Manage Workspace Column Updates</h4>
+                <p>The following columns are pre-configured by default in the Manage Workspace. The user needs to configure them.</p>
                 <ul>
-                    <li>Total — Total records in the Batch</li>
-                    <li>Success — Total records processed successfully</li>
-                    <li>Error — Total records in error status</li>
+                    <li>Total - Total records in the Batch</li>
+                    <li>Success - Total records processed successfully</li>
+                    <li>Error - Total records in error status</li>
                 </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-35986</span>-->
-                <h4>API Support for Usage Hub Batches</h4>
-                <p>RecVue now supports API-submitted usage data, enabling the automatic creation of batches in the Usage Hub in addition to Usage Hub DML. Both CISCO and Coupa import sources are supported, with validation triggered automatically after import — no manual steps needed. Failed validation records remain in the Usage Hub for manual correction.</p>
-                <p><strong>New Profile Option — "Use Usage DML API for Usage Hub":</strong></p>
+                <h4>API support for Usage Hub Batches</h4>
+                <p>RecVue now supports API-submitted usage data, enabling the automatic creation of batches in the Usage Hub, in addition to Usage Hub DML. Both CISCO and Coupa import sources are supported, with validation triggered automatically after import—no manual steps needed. Failed validation records stay in the Usage Hub for manual correction.</p>
+                <p>New Profile Option: Use Usage DML API for Usage Hub.</p>
                 <ul>
-                    <li><strong>Y:</strong> Enables the API specifically for Usage Hub functionality.</li>
-                    <li><strong>N (default):</strong> Uses the API for standard Usage DML operations.</li>
+                    <li>Y: Enables the API specifically for Usage Hub functionality.</li>
+                    <li>N (default): Uses the API for standard Usage DML operations.</li>
                 </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-37066</span>-->
-                <h4>Customer Specific: V3 Review Accounting Report Enhancement</h4>
-                <p>The V3 Review Accounting Report has been updated so that the Debit and Credit columns now only include transactions that have been successfully transferred to the General Ledger (GL Transfer Flag = "Y").</p>
+                <h4>Customer Specific Enhancements: V3 Review Accounting Report Enhancement</h4>
+                <p><strong>What's New</strong>: We've updated the V3 Review Accounting Report to provide more precise financial data. The Debit and Credit columns now only include transactions that have been successfully transferred to the General Ledger.</p>
+                <p><strong>Why does this matter</strong>: Previously, these columns showed all subledger entries for a period, regardless of whether they had been transferred. Now, the report automatically filters for entries where the GL Transfer Flag is set to "Y."</p>
+                <p><strong>Benefits</strong>:</p>
                 <ul>
-                    <li><strong>Improved Accuracy:</strong> Report totals now align strictly with data successfully transferred.</li>
-                    <li><strong>Better Reconciliation:</strong> Eliminates confusion caused by pending or un-transferred entries appearing in final totals.</li>
+                    <li><strong>Improved Accuracy</strong>: Your report totals will now align strictly with the data successfully transferred.</li>
+                    <li><strong>Better Reconciliation</strong>: Eliminates confusion caused by pending or un-transferred entries appearing in your final totals.</li>
                 </ul>
             </div>
         </section>
@@ -659,27 +670,27 @@
 
             <div class="feature-card">
                 <!--<span class="badge">CS-36518</span>-->
-                <h4>Updated Label Names in Order Line Details UI</h4>
-                <p><strong>Label Update:</strong> The term "Components" has been renamed to <strong>"Charges"</strong>. This update is reflected in both the action menu and the grid header.</p>
-                <p><strong>New "Line Type" Column:</strong> A new, read-only Line Type column has been added to the Charges grid, positioned next to the Component Type column.</p>
+                <h4>Changed Label Names in a few UIs</h4>
+                <p>The term "Components" has been renamed to "Charges". You will see this update reflected in both the action menu and the grid header.</p>
+                <p><strong>Added "Line Type" Column</strong>: A Line Type column has been added to the Charges grid, positioned next to the Component Type column.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-33716</span>-->
-                <h4>UI Renames: AR Adjustments and Turbo Bill Run</h4>
-                <p>The following UI names have been updated:</p>
+                <h4>Rename the AR Adjustment UI and Turbo Bill Run UI</h4>
+                <p>As requested by the user, we changed the following UI names.</p>
                 <table style="width:100%; margin-top:0.75rem;">
                     <tr>
-                        <th style="padding:8px; background:#f1f5f9;">Old Name</th>
                         <th style="padding:8px; background:#f1f5f9;">New Name</th>
+                        <th style="padding:8px; background:#f1f5f9;">Old Name</th>
                     </tr>
                     <tr>
-                        <td style="padding:8px;">AR Adjustments</td>
                         <td style="padding:8px;">Billing Adjustments</td>
+                        <td style="padding:8px;">AR Adjustments</td>
                     </tr>
                     <tr>
-                        <td style="padding:8px;">Turbo Bill Run</td>
                         <td style="padding:8px;">Apex Bill Run</td>
+                        <td style="padding:8px;">Turbo Bill Run</td>
                     </tr>
                 </table>
             </div>
@@ -691,9 +702,9 @@
             <h3>Revenue Management</h3>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-37608</span>-->
+               <!-- <span class="badge">CS-37608</span>-->
                 <h4>Enhanced POB Auto-Release for One-Time and Recurring Lines</h4>
-                <p>The POB Auto Release feature has been enhanced to now support <strong>One-Time</strong> and <strong>Recurring</strong> line types when the Auto Event Type is set to Amount. Previously, these line types could trigger errors because they only supported standard revenue schedules and lacked a path for usage-driven recognition.</p>
+                <p>We have enhanced the POB Auto Release feature to now support One-Time and Recurring line types when the Auto Event Type is set to Amount. Previously, these line types could trigger errors because they only supported standard revenue schedules and lacked a path for usage-driven recognition.</p>
                 <p>With this update, the system can successfully process auto events for these lines based on the specific usage amount and event date, ensuring revenue is scheduled accurately while maintaining the proper sequence of events.</p>
             </div>
         </section>
@@ -705,9 +716,9 @@
 
             <div class="feature-card">
                 <!--<span class="badge">CS-35932</span>-->
-                <h4>Billing Details &amp; Tax Report: Bill Run Name Dropdown Sort Order</h4>
-                <p><strong>Previous Behavior:</strong> The Bill Run Name parameter dropdown displayed bill runs in ascending order (oldest first), forcing users to scroll through the entire list to reach the most recent bill runs.</p>
-                <p><strong>New Behavior:</strong> The Bill Run Name dropdown in the Billing Details and Tax report (Reports &gt; Billing &gt; Billing Details and Tax) now displays bill runs sorted by creation date in <strong>descending order</strong>, with the most recently created bill runs appearing at the top of the list.</p>
+                <h4>Billing Details and Tax Report: Bill Run Name Dropdown Sort Order</h4>
+                <p><strong>Existing Functionality</strong>: In the Billing Details and Tax report, the Bill Run Name parameter dropdown field displayed bill runs in ascending order (oldest first), with no sort applied to creation date. Users had to scroll through the entire list to reach the most recent bill runs, making report execution cumbersome.</p>
+                <p><strong>Changed Functionality</strong>: The Bill Run Name dropdown in the Billing Details and Tax report (Reports &gt; Billing &gt; Billing Details and Tax) now displays bill runs sorted by creation date in descending order — with the most recently created bill runs appearing at the top of the list. This change applies to the Bill Run Name list of values (LOV) used as a report filter parameter.</p>
             </div>
         </section>
 
@@ -719,118 +730,74 @@
             <div class="feature-card">
                 <!--<span class="badge">CS-35080</span>-->
                 <h4>Audit History: Order Amendment Fix</h4>
-                <p>Previously, when an order was amended or a status was changed via automated packages, the audit history would occasionally display incorrect or incomplete information.</p>
-                <p><strong>The Fix:</strong> The system now accurately captures and records every status change at both the order and line levels. Whether you update an order manually or through a package, the audit trail will consistently show the correct details.</p>
-            </div>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-37212</span>-->
-                <h4>Fixed: Order Type Display Issue</h4>
-                <p>Resolved an issue where the Order Type would disappear from the screen immediately after being selected during order creation. While the system successfully saved the selection to the database, the UI failed to display it.</p>
-                <p><strong>The Fix:</strong></p>
-                <ul>
-                    <li><strong>Field Synchronization:</strong> Corrected a naming mismatch between front-end and back-end systems.</li>
-                    <li><strong>Standardized Lookup:</strong> The system now uses a standardized API to fetch order types based on your specific organization.</li>
-                    <li><strong>Better Error Handling:</strong> The UI will now remain stable and informative instead of failing silently.</li>
-                </ul>
+                <p><strong>Issue</strong>: Previously, when an order was amended or a status was changed via automated packages, the audit history would occasionally display incorrect or incomplete information.</p>
+                <p><strong>Fix</strong>: The system now accurately captures and records every status change at both the order and line levels. Whether you update an order manually or through a process, the audit trail will now consistently show the correct details.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-37533</span>-->
-                <h4>Fixed: "Sell To Site Does Not Have the Contact Specified" Error</h4>
-                <p>Resolved a bug that prevented users from updating the Sell-To location on orders, which previously triggered the error "Sell To Site does not have the contact specified."</p>
-                <p><strong>The Issue:</strong> When changing the Sell-To Location, the system mistakenly looked for a Customer ID instead of a Site ID, blocking the update. This primarily impacted partially billed or paid orders.</p>
-                <p><strong>The Fix:</strong> The search logic has been corrected to reference the proper Site ID field. Users can now update Sell-To and Bill-To sites without validation errors. The fix applies to all order statuses, including those partially billed or paid.</p>
+                <h4>Fixed: "Sell To Site Does Not Have the Contact Specified" Error when updating Sell-To Location</h4>
+                <p>Fixed a bug that prevented users from updating the Sell-To location on orders. Previously, attempting this change triggered the error: "Sell To Site does not have the contact specified."</p>
+                <p><strong>Issue</strong>: When changing the Sell-To Location on the Order Details screen, the system mistakenly looked for a Customer ID instead of a Site ID. Because of this data mismatch, the system couldn't validate the site correctly and blocked the update. This primarily impacted workflows for partially billed or paid orders.</p>
+                <p><strong>Fix</strong>: The search logic has been corrected to reference the proper Site ID field. This ensures the system correctly identifies and validates the location you select from the dropdown.</p>
+                <p><strong>Result:</strong></p>
+                <ul>
+                    <li>Users can now update Sell-To and Bill-To sites without encountering validation errors.</li>
+                    <li>The fix applies to all order statuses, including those that are partially billed or paid.</li>
+                </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-36452</span>-->
-                <h4>Fixed: Copy Line Issue for Reverse-Terminated Lines</h4>
-                <p>Users encountered an error when trying to modify the line date while copying a reverse-terminated line. The root cause was a special character in the Bill to Contact field. The issue is now resolved and the copy line functionality works correctly.</p>
+                <h4>Fixed Copy Line Issue for Reverse-Terminated Lines</h4>
+                <p>Users encountered an error message when trying to modify the line date while copying a reverse-terminated line.</p>
+                <p>The root cause was identified as a special character entered in the Bill to Contact field, which caused an error during the update process.</p>
+                <p>The issue is now resolved, and the copy line functionality works correctly.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-34942</span>-->
                 <h4>Fixed: Termination Date Restrictions on Evergreen Orders</h4>
-                <p>Resolved an issue that prevented users from selecting a valid termination date for Evergreen orders. The system was incorrectly capping the date picker at the order-level end date instead of the furthest line-level end date.</p>
-                <p><strong>The Fix:</strong></p>
+                <p>We resolved an issue that prevented users from selecting a valid termination date for Evergreen orders. The system was incorrectly capping the date picker, preventing users from choosing dates beyond a specific (and often outdated) limit.</p>
+                <p><strong>Issue</strong>: When the "Extend Evergreen End Date" program runs, it updates the end dates for individual lines, but not the overall order-level end date. Previously, the system checked the order-level date to determine the maximum allowable termination date. This caused the system to "lock" the calendar too early, disabling any dates beyond the order's original end date.</p>
+                <p><strong>Fix</strong>: We updated the date-selection logic to be smarter about how it identifies the maximum allowed date:</p>
                 <ul>
-                    <li><strong>For Evergreen Orders:</strong> The system now prioritizes the furthest line-level end date. If unavailable, it uses the order-level evergreen date.</li>
-                    <li><strong>For Standard Orders:</strong> The logic continues to use the standard effective end date.</li>
+                    <li>For Evergreen Orders: The system now prioritizes the furthest line-level end date. If that isn't available, it looks at the order-level evergreen date.</li>
+                    <li>For Standard Orders: The logic continues to use the standard effective end date as usual.</li>
                 </ul>
-            </div>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-38127</span>-->
-                <h4>Improved Sorting in the Amendment Workbench</h4>
-                <p>Previously, the Products grid in the Amendment Workbench sorted items only by line number, causing products from different orders to be mixed together.</p>
-                <p><strong>The Fix:</strong> The grid now follows a two-step sorting process:</p>
-                <ul>
-                    <li><strong>Primary Sort:</strong> Items are grouped by Order ID (most recent orders at the top).</li>
-                    <li><strong>Secondary Sort:</strong> Within each order, items are organized by Line Number in ascending order.</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-34560</span>-->
-                <h4>Fixed: New Lines Now Included in Future-Dated Terminations</h4>
-                <p>Previously, if a user added new service lines to an order after a future termination date had been set, those new lines were left out — causing amendments to remain stuck in "Partially Processed" status.</p>
-                <p><strong>The Fix:</strong></p>
-                <ul>
-                    <li><strong>Complete Processing:</strong> When an order is terminated, all associated lines — including any added after the initial amendment — are automatically terminated on the same future date.</li>
-                    <li><strong>Proactive Alerts:</strong> A warning message now appears if you try to add a new service line to an order already scheduled for termination.</li>
-                </ul>
+                <p><strong>Result</strong>: Users can now successfully select and apply the correct termination dates for Evergreen orders without being restricted by the order-level date.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-34291</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
                 <h4>Fully Billed Lines Can Now Be Updated via Amendment</h4>
-                <p>You can now extend the duration of lines that have already been fully billed using the Update Amendment feature. Previously, the system prevented users from modifying the end date of a line once billing was complete. Following a detailed feasibility study, the restriction was removed to provide more flexibility.</p>
+                <p>You can now extend the duration of lines that have already been fully billed using the <strong>Update Amendment</strong> feature.</p>
+                <p><strong>What has changed</strong>: In previous versions, the system prevented users from modifying a line's end date once the billing process was complete. Following a detailed feasibility study, we removed the restriction and updated the workflow to provide more flexibility.</p>
+                <p><strong>How it helps</strong>: If you need to extend a service or contract period for a line that has already been billed, you can now use an <strong>Amendment</strong> to adjust the end date. This ensures your records stay accurate without creating entirely new entries for simple extensions.</p>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-37533</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+               <!-- <span class="badge">CS-37533</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
                 <h4>Order Header: Sell-To-Site Update Fix</h4>
-                <p>Resolved a technical error that prevented users from updating location details within the Customer and Contacts tab. Previously, changing the Sell-To-Site location and clicking "Save" would trigger an error. This has been resolved — you can now update and save the Sell-To-Site location without encountering exceptions.</p>
+                <p>We have resolved a technical error that prevented users from updating location details within the Customer and Contacts tab.</p>
+                <p><strong>Issue</strong>: Previously, if a user tried to change the Sell-To-Site location on an order header and clicked "Save," the system would trigger an error message and block the update.</p>
+                <p><strong>Fix</strong>: This issue has been resolved. You can now update and save the Sell-To-Site location as many times as needed without encountering exceptions.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-38146</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
                 <h4>Order Header: Attribute 21V Field Fix</h4>
-                <p>The Attribute 21V field in the Additional Information tab was incorrectly configured as a dropdown menu, preventing users from manually entering unique information. It has been converted to a <strong>free-text field</strong> — you can now type and save custom data without being restricted to a predefined list.</p>
+                <p>We have resolved a data entry issue in the Additional Information tab of the Order Header to ensure more flexible record-keeping.</p>
+                <ul>
+                    <li><strong>Issue</strong>: Previously, the Attribute 21V field was incorrectly configured as a dropdown menu, preventing users from manually entering unique information.</li>
+                    <li><strong>Fix</strong>: We have converted Attribute 21V into a free-text field. You can now type and save custom data in this field as needed, without being restricted to a predefined list.</li>
+                </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-34884</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
                 <h4>Improved Handling of Names with Apostrophes</h4>
-                <p>Resolved an issue where names containing apostrophes (e.g., O'Malley) triggered error messages during searches or order saves. You can now successfully search for and save orders using a customer's full name across all bill-to and sell-to fields at both the header and line levels.</p>
-            </div>
-        </section>
-
-        <!-- WHAT'S FIXED – BILLING & INVOICE MANAGEMENT -->
-        <section id="billing-fixed" class="section">
-            <h2>What's Fixed</h2>
-            <h3>Billing &amp; Invoice Management</h3>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-37248</span>-->
-                <h4>Resolved GBS Execution for Non-Manual Order Lines</h4>
-                <p><strong>The Issue:</strong> For orders with recurring line types at manual frequency, users were unable to run GBS for lines with billing frequencies like monthly or quarterly.</p>
-                <p><strong>The Fix:</strong> The GBS option at the order header level is now enabled, allowing users to run GBS for non-manual order lines even when manual lines are present. GBS automatically skips manual order lines.</p>
-            </div>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-38021</span>-->
-                <h4>Fixed: Evergreen Stub Schedule Causing Billing Failures</h4>
-                <p><strong>The Issue:</strong> For evergreen billing lines, the last schedule in the sequence was generated as a STUB schedule (partial/short-period). If that stub got billed before the evergreen line was extended, the downstream scheduling logic became corrupted.</p>
-                <p><strong>The Fix:</strong> Changes were made to the evergreen end-date calculation logic — specifically how it handles the end date in relation to the Bill Offset setting. The last schedule in the sequence is now always generated as a standard schedule, preventing billing and scheduling failures upon line extension.</p>
-            </div>
-
-            <div class="feature-card">
-                <!--<span class="badge">CS-34909</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
-                <h4>Date Alignment Fix: Contract Schedules</h4>
-                <p>Resolved a synchronization issue between contract dates and their corresponding billing schedules. Previously, if a user updated the Line Start Date or End Date after manual schedules had already been generated, the schedules would not automatically align with the new contract term.</p>
-                <p><strong>The Fix:</strong> A new validation check has been introduced. If you attempt to change line dates, the system will now display a guidance message to ensure your contract duration and financial schedules always remain in sync.</p>
+                <p>We've resolved an issue in which names containing apostrophes (e.g., O'Malley) triggered error messages during searches or order saves. You can now successfully search for and save orders using a customer's full name across all bill-to and sell-to fields at both the header and line levels.</p>
             </div>
         </section>
 
@@ -840,49 +807,83 @@
             <h3>Partner Compensation</h3>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-38704</span>-->
-                <h4>Bug Fix: Payment Schedules Not Updating on Vendor/Line End Date Extensions</h4>
-                <p>Fixed a bug in the GPS system that prevented payment schedules from regenerating during the New Amendment process. Previously, if a contract was extended beyond five years or past its "Evergreen" date, the system would fail to create updated schedules.</p>
-                <p>This issue specifically impacted orders with Order Intent = BOTH and Pricing Type = Usage with Delivery Pricing lines. Payment schedules will now regenerate correctly through the new amended end date, regardless of how far into the future the contract is extended — for both partially paid and fully paid lines.</p>
+               <!-- <span class="badge">CS-38704</span>-->
+                <h4>Bug Fix: Payment Schedules not updating when Vendor/Line End Date Extensions</h4>
+                <p>We fixed a bug in the GPS system that prevented payment schedules from regenerating during the New Amendment process. Previously, if a contract was extended beyond five years or past its "Evergreen" date, the system would fail to create the updated schedules.</p>
+                <p><strong>What was affected</strong>: This issue specifically impacted orders with:</p>
+                <ul>
+                    <li>Order Intent: BOTH</li>
+                    <li>Pricing Type: Usage with Delivery Pricing lines</li>
+                </ul>
+                <p><strong>Fix</strong>: Payment schedules will now regenerate correctly through the new amended end date, regardless of how far into the future the contract is extended. This fix applies to:</p>
+                <ul>
+                    <li>Partially paid lines</li>
+                    <li>Fully paid lines</li>
+                </ul>
+                <p>This ensures your payment tracking remains accurate and continuous after long-term contract extensions.</p>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-36427</span>-->
+               <!-- <span class="badge">CS-36427</span> -->
                 <h4>Resolved: Zero-Quantity Deliveries Now Reflected in Payment Schedules</h4>
-                <p>Fixed a bug where importing a delivery with a quantity of zero for a previously paid line failed to update the payment schedules. Although the import would succeed technically, the system did not create the necessary "zero-quantity" adjustment entries.</p>
-                <p><strong>The Fix:</strong> Zero-quantity deliveries are now correctly recorded as adjustment entries, ensuring payment schedules accurately reflect these imports and audit trails remain complete.</p>
+                <p>We fixed a bug where importing a delivery with a quantity of zero for a previously paid line failed to update the payment schedules.</p>
+                <p><strong>Issue</strong>: Although the delivery import would technically succeed, the system did not create the necessary "zero-quantity" adjustment entries. This left those specific deliveries in unpaid status and missing from the payment schedule records.</p>
+                <p><strong>Fix</strong>: Zero-quantity deliveries imported into the system are now correctly recorded as adjustment entries. This ensures that:</p>
+                <ul>
+                    <li>Payment schedules accurately reflect these imports.</li>
+                    <li>Processing and payment occur as expected for these lines.</li>
+                    <li>Audit trails remain complete for all delivery adjustments.</li>
+                </ul>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-36421</span>-->
+                <!-- <span class="badge">CS-36421</span>-->
                 <h4>Resolved: Null Amounts Now Correctly Display as Zero</h4>
-                <p>Fixed a display issue where payment amounts appeared blank (null) instead of showing 0 for deliveries with zero quantity or cost, regardless of whether data was brought in via Standard Delivery Import, DML, or the Usage Hub.</p>
-                <p>The system now correctly displays <strong>0</strong> in the payment schedule amount field for these cases, ensuring data consistency and a uniform experience across all delivery import methods.</p>
+                <p>We've fixed a display issue in the Partner Compensation module where payment amounts appeared blank (null) instead of showing 0 for certain delivery types.</p>
+                <p><strong>Issue</strong>: When uploading deliveries with a quantity or cost of zero, the Payment Schedules user interface failed to display a numerical value. This occurred regardless of whether the data was brought in via Standard Delivery Import, DML, or the Usage Hub.</p>
+                <p><strong>Fix</strong>: The system now correctly displays 0 in the payment schedule amount field for these cases. This ensures:</p>
+                <ul>
+                    <li>Data Consistency: Clearer visibility into zero-cost or zero-quantity processing.</li>
+                    <li>Improved Accuracy: No more confusing blank spaces in the UI.</li>
+                    <li>Method Neutrality: The fix applies to all delivery import methods, ensuring a uniform experience across the platform.</li>
+                </ul>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-35562</span>-->
+               <!-- <span class="badge">CS-35562</span>-->
                 <h4>Resolved: Incorrect Year Displayed in Amendment Pop-up</h4>
-                <p>Fixed a visual bug where the Effective Date in the Amendment Update pop-up was incorrectly adding one year to the date shown. For example, a date saved as December 31, 2025 would appear as December 31, 2026. The database value was always correct, but the display was misleading. The pop-up now correctly displays the actual date stored in the system.</p>
+                <p>We fixed a visual bug in the Partner Compensation module where the Effective Date shown in the Amendment Update pop-up was incorrectly displaying the wrong year.</p>
+                <p><strong>Issue</strong>: The system was accidentally adding one year to the date shown in the user interface. For example, a date saved as December 31, 2025, would appear as December 31, 2026, in the pop-up window. While the data stored in the database was always correct, the display was misleading.</p>
+                <p><strong>Fix</strong>: The Amendment Update pop-up now correctly displays the actual date stored in the system.</p>
+                <ul>
+                    <li>Accurate Reporting: You can now trust that the date you see in the UI matches your records.</li>
+                    <li>UI Consistency: Eliminates confusion between what is displayed and what is saved in the database.</li>
+                </ul>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-31620 &amp; CS-34922</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
                 <h4>Monthly Schedule Period Date Shift for Start Dates 28–30</h4>
-                <p><strong>Impacted Modules:</strong> Billing (Billing Schedules) &amp; Partner Compensation (Payment Schedules)</p>
-                <p><strong>The Problem:</strong> For monthly schedules where the cycle start date falls on the 28th, 29th, or 30th of a month, the system was permanently shifting all future period dates after passing through February. Once the schedule reached February — where the intended start date didn't exist — Oracle's ADD_MONTHS function snapped to the last day of the month, and that anchor persisted for every subsequent period.</p>
-                <p><strong>The Fix:</strong> The system now correctly handles February as a point-in-time exception. The February period compresses to fit the shorter month, but all subsequent periods resume the original start-day pattern.</p>
-                <p>A new profile option <strong>[February Schedule Sync]</strong> has been introduced:</p>
+                <p>Impacted Modules: Billing (Billing Schedules) &amp; Partner Compensation (Payment Schedules)</p>
+                <p><strong>Problem</strong>: For monthly schedules where the cycle start date falls on the 28th, 29th, or 30th of a month, the system was permanently shifting all future period dates after the schedule passed through February. Once the schedule reached February — where the intended start date did not exist — Oracle's ADD_MONTHS function snapped to the last day of the month, and that last-day-of-month anchor persisted for every subsequent period. This caused all periods after February to follow end-of-month logic rather than resume the original day-of-month pattern.</p>
+                <p><strong>Impact</strong>:</p>
                 <ul>
-                    <li><strong>Disabled (default):</strong> System uses existing payment schedule logic.</li>
-                    <li><strong>Enabled:</strong> System applies the new logic for supported 28th-of-the-month scenarios.</li>
+                    <li>Affected billing and payment schedules with Billing Cycle = Line Start Date where the start date was the 28th, 29th, or 30th.</li>
+                    <li>Impacted both leap year and non-leap year scenarios.</li>
+                    <li>ERP [Downstream] effects on customer billing systems and internal calculations.</li>
+                </ul>
+                <p><strong>Fix</strong>: The system now correctly handles February as a point-in-time exception. The February period compresses to fit the shorter month, but all subsequent periods resume the original start-day pattern.</p>
+                <p>We introduced a profile option [<em>February Schedule Sync</em>] to control the month-end payment behavior:</p>
+                <ul>
+                    <li>Disabled (default): System uses existing payment schedule logic.</li>
+                    <li>Enabled: System applies the new and required logic for supported 28th-of-the-month scenarios.</li>
                 </ul>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-37766</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
+               <!-- <span class="badge">CS-37766</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.1.1</span>
                 <h4>Pay Run Accuracy for In-Advance Payments</h4>
-                <p>Resolved an issue where entering a value in the Attribute_1V field caused the Pay Run engine to incorrectly select pay lines beyond the "Pay Through Date" for In-Advance payment types. The engine now correctly identifies and selects only eligible pay lines based on your input.</p>
+                <p>We resolved an issue where entering a value in the Attribute_1V field caused the Pay Run engine to incorrectly select pay lines beyond the "Pay Through Date" for In-Advance payment types. The engine now correctly identifies and selects only eligible pay lines based on your input.</p>
             </div>
         </section>
 
@@ -892,24 +893,25 @@
             <h3>RecVue Foundation</h3>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-37661</span>-->
-                <h4>Enhanced User-Specific Employee GET API</h4>
-                <p>The user-specific Get Employee API has been improved to retrieve employee details by employee number, making it easier and faster to retrieve the required records.</p>
+               <!-- <span class="badge">CS-37661</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.2</span>
+                <h4>Enhanced User Specific Employee GET API</h4>
+                <p>We have improved the user-specific Get Employee API to retrieve employee details by employee number, making it easier to quickly retrieve the required records.</p>
             </div>
 
             <div class="feature-card">
-                <!--<span class="badge">CS-36897</span>-->
+                <!--<span class="badge">CS-36897</span>--><span class="badge badge-interim" style="margin-left:0.5rem;">R26.2</span>
                 <h4>Import Source Validation Fix</h4>
-                <p>Resolved a validation error that prevented users from creating new Import Sources. Previously, the system blocked creation if the name matched an existing one, even when the Source IDs differed.</p>
-                <p><strong>The Result:</strong> You can now successfully create Import Sources with duplicate names, provided they have unique Source IDs, offering more flexibility in how you label your data sources.</p>
+                <p>We have resolved a validation error that prevented users from creating new Import Sources.</p>
+                <p><strong>Fix</strong>: Previously, the system blocked the creation of an Import Source if the name matched an existing one, even when the Source IDs differed.</p>
+                <p><strong>Result</strong>: You can now successfully create Import Sources with duplicate names, provided they have unique Source IDs, offering more flexibility in how you label your data sources.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-38387</span>-->
                 <h4>Missing Data in Billing Lines API</h4>
-                <p>Resolved an issue where the Bill Run Billing Lines API (<code>GET /api/v2.0/billrun/{id}/billinglines</code>) returned null records for certain bill runs.</p>
-                <p><strong>The Issue:</strong> An internal database mapping error caused the system to look for records using an incorrect identifier. Because this identifier was sometimes empty, the API failed to retrieve the associated billing data.</p>
-                <p><strong>The Fix:</strong> The data mapping has been corrected to use the proper unique ID. The API now reliably returns all billing line records as expected.</p>
+                <p>We resolved an issue in which the Bill Run Billing Lines API (GET /api/v2.0/billrun/{id}/billinglines) returned null records for certain bill runs.</p>
+                <p><strong>Issue</strong>: An internal database mapping error caused the system to look for records using an incorrect identifier. Because this identifier was sometimes empty, the API failed to retrieve the associated billing data.</p>
+                <p><strong>Fix</strong>: We have corrected the data mapping to use the proper unique ID. The API now reliably returns all billing line records as expected.</p>
             </div>
         </section>
 
@@ -921,21 +923,17 @@
             <div class="feature-card">
                 <!--<span class="badge">CS-37324</span>-->
                 <h4>Corrected Revenue Allocation During POB Changes</h4>
-                <p>Resolved an issue where changing a Performance Obligation (POB) on RSSP lines caused the system to miscalculate net revenue. Previously, the "Change POB" process incorrectly used the total selling price to update SSP values, failing to account for revenue already allocated within the Revenue Contract. This could cause allocated revenue to exceed the original contract value (e.g., a $1.26M contract inflated to $2.4M).</p>
-                <ul>
-                    <li><strong>Accurate Revenue Totals:</strong> RSSP values are now correctly limited by the total revenue allocated in the contract.</li>
-                    <li><strong>Prevention of Over-allocation:</strong> Revenue cannot exceed the original contract value during a POB change.</li>
-                    <li><strong>Reliable Reporting:</strong> Prevents incorrect impacts on Contract Asset and Contract Liability (CACL) balances.</li>
-                </ul>
+                <p><strong>Issue</strong>: When a user triggers the Change POB functionality, the SSP values are being recalculated unnecessarily. This recalculation distorts the SSP values, even though they are not dependent on the POB.</p>
+                <p><strong>Fix</strong>: The Fix ensures that SSP values remain unchanged when Change POB is triggered. Since SSP values do not depend on POB, they are no longer recalculated, preventing distortion.</p>
             </div>
 
             <div class="feature-card">
                 <!--<span class="badge">CS-30781</span>-->
-                <h4>Fixed: Waterfall Report 1-Cent Accuracy Issue</h4>
-                <p>Resolved a small but impactful 1-cent ($0.01) discrepancy in the period columns of the Waterfall Report. This only occurred when selecting the Contractual Revenue type; Net Revenue reports were unaffected.</p>
-                <p><strong>Root Cause:</strong> A field called PERIOD_SELL_AMT was accidentally defaulting to $0.00 instead of the actual value when it couldn't find a Standalone Selling Price (SSP).</p>
-                <p><strong>The Fix:</strong> The logic for the Period Sell Amount calculation has been updated. If the system doesn't find an SSP Revenue Amount, it now automatically pulls the correct revenue amount instead of defaulting to zero. The Waterfall Report is now 100% accurate for both Contractual Revenue and Net Revenue report types.</p>
-                <p><em>Note: This fix is included in the 26.2 update. Please ensure your system is updated to this version to see the changes.</em></p>
+                <h4>Fixed the Waterfall Report 1-Cent Accuracy</h4>
+                <p><strong>Issue</strong>: A 1-cent variance is observed in the waterfall Report when the waterfall type is set to Contractual.</p>
+                <p><strong>Fix</strong>: The logic for calculating PERIOD_SELL_AMT in revenue schedules has been enhanced to correctly populate the value as 0.01 when no SSP revenue amount is available, thereby preventing zero-value assignment and eliminating the 1-cent variance. For all other scenarios where SSP revenue exists, the existing calculation logic remains unchanged to ensure consistency.</p>
+                <p><strong>Result</strong>: The Waterfall Report is now 100% accurate. Whether you are running reports for Contractual Revenue or Net Revenue, your totals will match perfectly with no variances.</p>
+                <p>Note: This fix is included in the 26.2 update. Please ensure your system is updated to this version to see the changes.</p>
             </div>
         </section>
 
@@ -945,13 +943,13 @@
             <div class="feature-card">
                 <h4>Contact RecVue Support</h4>
                 <p>For further information or any technical support, please contact:</p>
-                <p><strong>Email:</strong> <a href="mailto:support@recvue.com" style="color:#1e40af;">support@recvue.com</a></p>
+                <p><strong>E-mail:</strong> <a href="mailto:support@recvue.com" style="color:#1e40af;">support@recvue.com</a></p>
                 <p><strong>Phone:</strong> +1-650-620-7788</p>
             </div>
             <div class="feature-card">
                 <h4>Copyright</h4>
-                <p>This document is the property of and is proprietary to RECVUE. It is to be disclosed in whole or in part only with the expressed written authorization of RECVUE and shall not be duplicated or used, in whole or in part, without written permission. It shall be returned to RECVUE upon request.</p>
-                <p>Copyright &copy; 2026–2027 RECVUE, Inc. All rights reserved. All trademarks, trade names, service marks, and logos referenced herein belong to their respective companies.</p>
+                <p>This document is the property of and is proprietary to RECVUE. It is to be disclosed in whole or in part with the expressed written authorization of RECVUE and shall not be duplicated or used, in whole or in part, and shall be returned to RECVUE upon request.</p>
+                <p>Copyright &copy;26-2027 RECVUE, Inc. All rights reserved. All trademarks, trade names, service marks, and logos referenced herein belong to their respective companies.</p>
             </div>
         </section>
 
